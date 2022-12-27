@@ -9,40 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Transaction = void 0;
 const typeorm_1 = require("typeorm");
-let User = class User {
+let Transaction = class Transaction {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int' }),
     __metadata("design:type", Number)
-], User.prototype, "idUser", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
-    __metadata("design:type", String)
-], User.prototype, "username", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Transaction.prototype, "idTransaction", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', default: "" }),
     __metadata("design:type", String)
-], User.prototype, "avatar", void 0);
+], Transaction.prototype, "note", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 4 }),
-    __metadata("design:type", Number)
-], User.prototype, "sex", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', default: "" }),
+    (0, typeorm_1.Column)({ type: "date" }),
     __metadata("design:type", String)
-], User.prototype, "address", void 0);
+], Transaction.prototype, "time", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 0 }),
+    (0, typeorm_1.Column)({ type: "int" }),
     __metadata("design:type", Number)
-], User.prototype, "age", void 0);
-User = __decorate([
-    (0, typeorm_1.Entity)({ name: 'users' })
-], User);
-exports.User = User;
-//# sourceMappingURL=user.js.map
+], Transaction.prototype, "totalSpent", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "int" }),
+    __metadata("design:type", Number)
+], Transaction.prototype, "walletId", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "int" }),
+    __metadata("design:type", Number)
+], Transaction.prototype, "categoryId", void 0);
+Transaction = __decorate([
+    (0, typeorm_1.Entity)({ name: 'transaction' })
+], Transaction);
+exports.Transaction = Transaction;
+//# sourceMappingURL=transaction.js.map
