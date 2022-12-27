@@ -16,6 +16,4 @@ export class UserService {
         let users = await this.userRepository.find()
        return users
    }
-
-
 }
