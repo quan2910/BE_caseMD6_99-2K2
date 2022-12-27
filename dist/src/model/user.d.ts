@@ -1,9 +1,9 @@
 export declare class User {
-    readonly id: number;
+    readonly idUser: number;
     username: string;
     password: string;
     avatar: string;
-    sex: string;
+    sex: number;
     address: string;
     age: number;
 }

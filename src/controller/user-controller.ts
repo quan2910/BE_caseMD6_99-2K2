@@ -11,7 +11,13 @@ class UserController {
     }
     showUser = async (req:Request,res:Response)=>{
            let users = await this.userService.getAll()
-
+           return res.status(200).json(users)
     }
+
+    register = async (req:Request,res:Response)=>{
+        let user = await this.userService.save(req.body)
+        res.status(200).json(user)
+    }
+
 }
 export default new UserController()

@@ -5,6 +5,11 @@ class UserController {
     constructor() {
         this.showUser = async (req, res) => {
             let users = await this.userService.getAll();
+            return res.status(200).json(users);
+        };
+        this.register = async (req, res) => {
+            let user = await this.userService.save(req.body);
+            res.status(200).json(user);
         };
         this.userService = new user_service_1.UserService();
     }
