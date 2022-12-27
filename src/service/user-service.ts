@@ -1,8 +1,14 @@
 import {AppDataSource} from "../data-source";
 import {User} from "../model/user"
+<<<<<<< HEAD
 import bcrypt from 'bcrypt';
 
 
+=======
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+import {SECRET} from "../middleware/auth";
+>>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
 export class UserService {
     userRepository: any;
 
@@ -24,6 +30,7 @@ export class UserService {
 where username = '${user.username}'`
        let userFind = await this.userRepository.query(query);
 
+<<<<<<< HEAD
         if (userFind.length != 0 ){
             return {
                 mess: 'has the same name'
@@ -33,5 +40,51 @@ where username = '${user.username}'`
             return await this.userRepository.save(user)
         }
    }
+=======
+   checkLogin = async (userLogin)=>{
+        let user = {
+            check :false,
+            token : "",
+            authenticUser :false
+        }
+        let userFind =await this.userRepository.query(`select * from users where username = "${userLogin.username}"`)
+         if(userFind.length==0){
+             user.check=false
+             return user
+         }else{
+           let compare = await  bcrypt.compare(userLogin.password,userFind[0].password)
+             if (!compare) {
+                 user.check = false;
+                 return user
+             }
+             if (compare) {
+                 let payload = {username: userFind[0].username}
+                 let token = await jwt.sign(payload, SECRET, {
+                     expiresIn: 36000
+                 })
+                 user.token = token;
+                 user.check = true;
+                 user.authenticUser = userFind
+                 return user
+             }
+         }
+>>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
 
+   }
+
+    checkRegister = async (userRegister) => {
+        let userFind = await this.userRepository.query(`select * from users where username = '${userRegister.username}'`);
+        let check;
+        if (userFind.length !== 0) {
+            check = true
+        } else {
+            userRegister.password = await bcrypt.hash(userRegister.password, 10)
+            check = false
+        }
+        return check
+    }
+
+    createUser = async (user) => {
+        await this.userRepository.save(user);
+    }
 }
