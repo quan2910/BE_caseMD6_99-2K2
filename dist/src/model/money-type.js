@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], MoneyType.prototype, "nameMoneyType", void 0);
 MoneyType = __decorate([
-    (0, typeorm_1.Entity)({ name: 'moneyType' })
+    (0, typeorm_1.Entity)()
 ], MoneyType);
 exports.MoneyType = MoneyType;
 //# sourceMappingURL=money-type.js.map

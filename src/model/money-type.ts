@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity({name:'moneyType'})
+@Entity()
 export class MoneyType{
     @PrimaryGeneratedColumn({type:'int'})
     public readonly idMoneyType: number;
