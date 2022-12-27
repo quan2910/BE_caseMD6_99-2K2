@@ -9,5 +9,6 @@ export class UserService {
             console.log('Connected Database')
             this.userService = connection.getRepository(User)
         })
+        this.userService= AppDataSource.getRepository(User);
     }
 }
