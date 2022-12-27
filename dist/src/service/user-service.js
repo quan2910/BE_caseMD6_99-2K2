@@ -5,11 +5,14 @@ const data_source_1 = require("../data-source");
 const user_1 = require("../model/user");
 class UserService {
     constructor() {
+        this.getAll = async () => {
+            let users = await this.userService.find();
+            return users;
+        };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userService = connection.getRepository(user_1.User);
         });
-        this.userService = data_source_1.AppDataSource.getRepository(user_1.User);
     }
 }
 exports.UserService = UserService;
