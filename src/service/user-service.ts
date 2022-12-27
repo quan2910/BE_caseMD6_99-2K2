@@ -1,6 +1,8 @@
 import {AppDataSource} from "../data-source";
 import {User} from "../model/user"
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+import {SECRET} from "../middleware/auth";
 export class UserService {
     userRepository: any;
 
@@ -16,4 +18,50 @@ export class UserService {
         let users = await this.userRepository.find()
        return users
    }
+
+   checkLogin = async (userLogin)=>{
+        let user = {
+            check :false,
+            token : "",
+            authenticUser :false
+        }
+        let userFind =await this.userRepository.query(`select * from users where username = "${userLogin.username}"`)
+         if(userFind.length==0){
+             user.check=false
+             return user
+         }else{
+           let compare = await  bcrypt.compare(userLogin.password,userFind[0].password)
+             if (!compare) {
+                 user.check = false;
+                 return user
+             }
+             if (compare) {
+                 let payload = {username: userFind[0].username}
+                 let token = await jwt.sign(payload, SECRET, {
+                     expiresIn: 36000
+                 })
+                 user.token = token;
+                 user.check = true;
+                 user.authenticUser = userFind
+                 return user
+             }
+         }
+
+   }
+
+    checkRegister = async (userRegister) => {
+        let userFind = await this.userRepository.query(`select * from users where username = '${userRegister.username}'`);
+        let check;
+        if (userFind.length !== 0) {
+            check = true
+        } else {
+            userRegister.password = await bcrypt.hash(userRegister.password, 10)
+            check = false
+        }
+        return check
+    }
+
+    createUser = async (user) => {
+        await this.userRepository.save(user);
+    }
 }
