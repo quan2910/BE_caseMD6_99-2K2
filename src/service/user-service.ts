@@ -12,9 +12,10 @@ export class UserService {
         this.userRepository = AppDataSource.getRepository(User);
     }
 
-    getAll = async () => {
+   getAll =async ()=>{
         let users = await this.userRepository.find()
-        return users
-    }
+       return users
+   }
+
 
 }
