@@ -11,6 +11,7 @@ class UserController {
     }
     showUser = async (req:Request,res:Response)=>{
            let users = await this.userService.getAll()
+
     }
 }
 export default new UserController()
