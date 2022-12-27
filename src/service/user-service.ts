@@ -2,16 +2,16 @@ import {AppDataSource} from "../data-source";
 import {User} from "../model/user"
 
 export class UserService {
-     userService: any;
+    userRepository: any;
 
     constructor() {
         AppDataSource.initialize().then(connection =>{
             console.log('Connected Database')
-            this.userService = connection.getRepository(User)
+            this.userRepository = connection.getRepository(User)
         })
     }
    getAll =async ()=>{
-        let users = await this.userService.find()
+        let users = await this.userRepository.find()
        return users
    }
 
