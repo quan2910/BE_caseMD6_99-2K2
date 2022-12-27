@@ -9,20 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MoneyType = void 0;
+exports.Category = void 0;
 const typeorm_1 = require("typeorm");
-let MoneyType = class MoneyType {
+let Category = class Category {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int' }),
     __metadata("design:type", Number)
-], MoneyType.prototype, "idMoneyType", void 0);
+], Category.prototype, "idCategory", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar' }),
     __metadata("design:type", String)
-], MoneyType.prototype, "nameMoneyType", void 0);
-MoneyType = __decorate([
-    (0, typeorm_1.Entity)({ name: 'moneyType' })
-], MoneyType);
-exports.MoneyType = MoneyType;
-//# sourceMappingURL=money-type.js.map
+], Category.prototype, "nameCategory", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar' }),
+    __metadata("design:type", String)
+], Category.prototype, "statusCategory", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', default: '' }),
+    __metadata("design:type", String)
+], Category.prototype, "color", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar' }),
+    __metadata("design:type", String)
+], Category.prototype, "userId", void 0);
+Category = __decorate([
+    (0, typeorm_1.Entity)({ name: 'categories' })
+], Category);
+exports.Category = Category;
+//# sourceMappingURL=category.js.map

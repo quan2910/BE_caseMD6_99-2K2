@@ -13,6 +13,7 @@ class UserService {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);
         });
+        this.userRepository = data_source_1.AppDataSource.getRepository(user_1.User);
     }
 }
 exports.UserService = UserService;
