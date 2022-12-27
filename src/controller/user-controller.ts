@@ -9,5 +9,8 @@ class UserController {
     constructor() {
         this.userService = new UserService()
     }
+    showUser = async (req:Request,res:Response)=>{
+           let users = await this.userService.getAll()
+    }
 }
 export default new UserController()
