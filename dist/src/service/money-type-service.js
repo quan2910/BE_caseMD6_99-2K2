@@ -10,9 +10,9 @@ class MoneyTypeService {
             let moneyTypes = await this.moneyTypeRepository.save(moneyType);
             return moneyTypes;
         };
-        this.getAll = async () => {
-            let moneyType = await this.moneyTypeRepository.find();
-            return moneyType;
+        this.findAllMoneyType = async () => {
+            let moneyTypes = await this.moneyTypeRepository.find();
+            return moneyTypes;
         };
         this.moneyTypeRepository = data_source_1.AppDataSource.getRepository(money_type_1.MoneyType);
     }

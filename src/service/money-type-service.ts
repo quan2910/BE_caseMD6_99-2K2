@@ -1,6 +1,6 @@
 import {AppDataSource} from "../data-source";
 import {MoneyType} from "../model/money-type";
-
+import {Request, Response} from "express";
 
 export class MoneyTypeService {
     moneyTypeRepository: any;
@@ -9,14 +9,14 @@ export class MoneyTypeService {
         this.moneyTypeRepository = AppDataSource.getRepository(MoneyType);
     }
 
-    addMoneyType = async (req:Request,res:Response)=>{
+    addMoneyType = async (req: Request, res: Response)=>{
         let moneyType = req.body;
         let moneyTypes = await this.moneyTypeRepository.save(moneyType)
         return moneyTypes
     }
 
-    getAll =async ()=>{
-        let moneyType = await this.moneyTypeRepository.find()
-        return moneyType
+    findAllMoneyType = async ()=>{
+        let moneyTypes = await this.moneyTypeRepository.find()
+        return moneyTypes
     }
 }
