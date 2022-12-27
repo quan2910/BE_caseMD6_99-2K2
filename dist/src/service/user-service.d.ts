@@ -1,5 +1,5 @@
 export declare class UserService {
-    userService: any;
+    userRepository: any;
     constructor();
     getAll: () => Promise<any>;
 }
