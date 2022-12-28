@@ -6,13 +6,13 @@ export class Wallet {
     public readonly idWallet: number;
     @Column({type: 'varchar'})
     public nameWallet: string;
-    @Column({type: 'varchar', default: ''})
+    @Column({type: 'varchar',default: ''})
     public icon: string;
     @Column({type: 'int'})
     public moneyAmount: number;
     @Column({type:'int'})
     public status:number;
-    @Column({type:'int'})
+    @Column({type:'int',default: 3})
     public moneyTypeId:number;
     @Column({type:'int'})
     public userId:number

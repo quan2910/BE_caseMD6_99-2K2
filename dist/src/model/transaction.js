@@ -9,40 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Wallet = void 0;
+exports.Transaction = void 0;
 const typeorm_1 = require("typeorm");
-let Wallet = class Wallet {
+let Transaction = class Transaction {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int' }),
     __metadata("design:type", Number)
-], Wallet.prototype, "idWallet", void 0);
+], Transaction.prototype, "idTransaction", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: 'varchar', default: "" }),
     __metadata("design:type", String)
-], Wallet.prototype, "nameWallet", void 0);
+], Transaction.prototype, "note", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', default: '' }),
+    (0, typeorm_1.Column)({ type: "date" }),
     __metadata("design:type", String)
-], Wallet.prototype, "icon", void 0);
+], Transaction.prototype, "time", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int' }),
+    (0, typeorm_1.Column)({ type: "int" }),
     __metadata("design:type", Number)
-], Wallet.prototype, "moneyAmount", void 0);
+], Transaction.prototype, "totalSpent", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int' }),
+    (0, typeorm_1.Column)({ type: "int" }),
     __metadata("design:type", Number)
-], Wallet.prototype, "status", void 0);
+], Transaction.prototype, "walletId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 3 }),
+    (0, typeorm_1.Column)({ type: "int" }),
     __metadata("design:type", Number)
-], Wallet.prototype, "moneyTypeId", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'int' }),
-    __metadata("design:type", Number)
-], Wallet.prototype, "userId", void 0);
-Wallet = __decorate([
+], Transaction.prototype, "categoryId", void 0);
+Transaction = __decorate([
     (0, typeorm_1.Entity)()
-], Wallet);
-exports.Wallet = Wallet;
-//# sourceMappingURL=wallet.js.map
+], Transaction);
+exports.Transaction = Transaction;
+//# sourceMappingURL=transaction.js.map
