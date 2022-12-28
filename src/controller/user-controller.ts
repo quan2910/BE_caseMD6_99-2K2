@@ -3,29 +3,28 @@ import {UserService} from "../service/user-service";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-export class UserController {
+class UserController {
     private userService: UserService
 
     constructor() {
         this.userService = new UserService()
     }
-
-    showUser = async (req: Request, res: Response) => {
-        let users = await this.userService.getAll()
-        return res.status(200).json(users)
+    showUser = async (req:Request,res:Response)=>{
+           let users = await this.userService.getAll()
     }
-    login = async (req: Request, res: Response) => {
+
+    login = async (req:Request,res:Response)=>{
         try {
             let user = await this.userService.checkLogin(req.body)
-            if (user.check === false) {
-                res.json({mess: "sai tài khoản"})
-            } else {
-                res.json({user: user})
+            if(user.check===false){
+                res.json({mess:"sai tài khoản"})
+            }else {
+                res.json({user :user})
             }
-        } catch (e) {
+        }catch (e) {
             res.json({
-                    err: e.message
-                }
+                err :e.message
+            }
             )
         }
     }
@@ -43,15 +42,15 @@ export class UserController {
                     mess: "Tạo tài khoản thành công"
                 })
             }
-        } catch (e) {
+        }catch (e) {
             res.json({
-                    err: e.message
+                    err :e.message
                 }
             )
         }
 
     }
 
-}
 
-export default  new UserController();
+}
+export default new UserController()

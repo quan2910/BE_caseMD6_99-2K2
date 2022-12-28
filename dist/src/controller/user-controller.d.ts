@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-export declare class UserController {
+declare class UserController {
     private userService;
     constructor();
-    showUser: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
+    showUser: (req: Request, res: Response) => Promise<void>;
     login: (req: Request, res: Response) => Promise<void>;
     register: (req: Request, res: Response) => Promise<void>;
 }

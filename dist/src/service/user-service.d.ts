@@ -6,8 +6,6 @@ export declare class UserService {
         check: boolean;
         token: string;
         authenticUser: boolean;
-        username: string;
-        idUser: string;
     }>;
     checkRegister: (userRegister: any) => Promise<any>;
     createUser: (user: any) => Promise<void>;
