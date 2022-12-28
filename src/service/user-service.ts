@@ -1,14 +1,9 @@
 import {AppDataSource} from "../data-source";
 import {User} from "../model/user"
-<<<<<<< HEAD
-import bcrypt from 'bcrypt';
-
-
-=======
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import {SECRET} from "../middleware/auth";
->>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
+
 export class UserService {
     userRepository: any;
 
@@ -30,7 +25,7 @@ export class UserService {
 where username = '${user.username}'`
        let userFind = await this.userRepository.query(query);
 
-<<<<<<< HEAD
+
         if (userFind.length != 0 ){
             return {
                 mess: 'has the same name'
@@ -40,7 +35,7 @@ where username = '${user.username}'`
             return await this.userRepository.save(user)
         }
    }
-=======
+
    checkLogin = async (userLogin)=>{
         let user = {
             check :false,
@@ -68,7 +63,7 @@ where username = '${user.username}'`
                  return user
              }
          }
->>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
+
 
    }
 

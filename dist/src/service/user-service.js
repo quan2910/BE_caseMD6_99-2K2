@@ -7,18 +7,14 @@ exports.UserService = void 0;
 const data_source_1 = require("../data-source");
 const user_1 = require("../model/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-<<<<<<< HEAD
-=======
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = require("../middleware/auth");
->>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
 class UserService {
     constructor() {
         this.getAll = async () => {
             let users = await this.userRepository.find();
             return users;
         };
-<<<<<<< HEAD
         this.save = async (user) => {
             console.log(user);
             let query = `select * from users 
@@ -34,7 +30,6 @@ where username = '${user.username}'`;
                 return await this.userRepository.save(user);
             }
         };
-=======
         this.checkLogin = async (userLogin) => {
             let user = {
                 check: false,
@@ -79,7 +74,6 @@ where username = '${user.username}'`;
         this.createUser = async (user) => {
             await this.userRepository.save(user);
         };
->>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);

@@ -11,16 +11,11 @@ class UserController {
     }
     showUser = async (req:Request,res:Response)=>{
            let users = await this.userService.getAll()
-<<<<<<< HEAD
            return res.status(200).json(users)
     }
 
-    register = async (req:Request,res:Response)=>{
-        let user = await this.userService.save(req.body)
-        res.status(200).json(user)
-    }
-=======
-    }
+
+
 
     login = async (req:Request,res:Response)=>{
         try {
@@ -60,7 +55,6 @@ class UserController {
 
     }
 
->>>>>>> 4db0eeec8b7f4164d411d062208e65e982dd68d0
 
 }
 export default new UserController()
