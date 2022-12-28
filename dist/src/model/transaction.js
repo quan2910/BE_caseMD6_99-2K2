@@ -37,6 +37,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: "int" }),
     __metadata("design:type", Number)
 ], Transaction.prototype, "categoryId", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "int" }),
+    __metadata("design:type", Number)
+], Transaction.prototype, "userID", void 0);
 Transaction = __decorate([
     (0, typeorm_1.Entity)({ name: 'transaction' })
 ], Transaction);

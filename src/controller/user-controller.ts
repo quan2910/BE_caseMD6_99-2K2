@@ -11,6 +11,7 @@ class UserController {
     }
     showUser = async (req:Request,res:Response)=>{
            let users = await this.userService.getAll()
+        return res.status(200).json(users)
     }
 
     login = async (req:Request,res:Response)=>{
@@ -50,7 +51,5 @@ class UserController {
         }
 
     }
-
-
 }
 export default new UserController()

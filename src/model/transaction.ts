@@ -14,4 +14,6 @@ export class Transaction{
     public walletId :number;
     @Column({type:"int"})
     public categoryId :number
+    @Column({type:"int"})
+    public userID :number;
 }

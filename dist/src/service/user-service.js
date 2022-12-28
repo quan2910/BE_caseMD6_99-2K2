@@ -19,9 +19,12 @@ class UserService {
             let user = {
                 check: false,
                 token: "",
-                authenticUser: false
+                authenticUser: false,
+                username: "",
+                idUser: 0
             };
             let userFind = await this.userRepository.query(`select * from users where username = "${userLogin.username}"`);
+            console.log(userFind);
             if (userFind.length == 0) {
                 user.check = false;
                 return user;
@@ -39,7 +42,8 @@ class UserService {
                     });
                     user.token = token;
                     user.check = true;
-                    user.authenticUser = userFind;
+                    user.username = userFind[0].username;
+                    user.idUser = userFind[0].idUser;
                     return user;
                 }
             }

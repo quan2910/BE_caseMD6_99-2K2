@@ -5,6 +5,7 @@ class UserController {
     constructor() {
         this.showUser = async (req, res) => {
             let users = await this.userService.getAll();
+            return res.status(200).json(users);
         };
         this.login = async (req, res) => {
             try {
