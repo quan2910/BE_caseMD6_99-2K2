@@ -12,7 +12,6 @@ class WalletController {
         };
         this.createWallet = async (req, res) => {
             try {
-                console.log(req.body);
                 let wallet = await wallet_service_1.default.create(req.body);
                 return res.status(200).json({
                     wallet: wallet,
