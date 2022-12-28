@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import WalletService from "../service/wallet-service";
+import walletService from "../service/wallet-service";
 
 
 class WalletController {
@@ -51,6 +52,11 @@ class WalletController {
             )
         }
 
+    }
+    showWalletDetail = async (req:Request,res:Response)=>{
+        let idUser = req.params.id
+      let walletHome =  await walletService.getWalletDetail(idUser)
+        res.json(walletHome)
     }
 }
 

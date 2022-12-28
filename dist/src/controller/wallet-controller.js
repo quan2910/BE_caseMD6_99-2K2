@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const wallet_service_1 = __importDefault(require("../service/wallet-service"));
+const wallet_service_2 = __importDefault(require("../service/wallet-service"));
 class WalletController {
     constructor() {
         this.showAll = async (req, res) => {
@@ -48,6 +49,11 @@ class WalletController {
                     err: e.mess
                 });
             }
+        };
+        this.showWalletDetail = async (req, res) => {
+            let idUser = req.params.id;
+            let walletHome = await wallet_service_2.default.getWalletDetail(idUser);
+            res.json(walletHome);
         };
     }
 }
