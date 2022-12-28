@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Transaction.prototype, "userID", void 0);
 Transaction = __decorate([
-    (0, typeorm_1.Entity)({ name: 'transaction' })
+    (0, typeorm_1.Entity)()
 ], Transaction);
 exports.Transaction = Transaction;
 //# sourceMappingURL=transaction.js.map

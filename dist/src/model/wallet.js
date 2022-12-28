@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Wallet.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int' }),
+    (0, typeorm_1.Column)({ type: 'int', default: 3 }),
     __metadata("design:type", Number)
 ], Wallet.prototype, "moneyTypeId", void 0);
 __decorate([

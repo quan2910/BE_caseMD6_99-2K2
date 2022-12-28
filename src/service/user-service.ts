@@ -3,6 +3,7 @@ import {User} from "../model/user"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import {SECRET} from "../middleware/auth";
+
 export class UserService {
     userRepository: any;
 
@@ -17,6 +18,22 @@ export class UserService {
    getAll =async ()=>{
         let users = await this.userRepository.find()
        return users
+   }
+   save = async (user) => {
+       console.log(user);
+        let query = `select * from users 
+where username = '${user.username}'`
+       let userFind = await this.userRepository.query(query);
+
+
+        if (userFind.length != 0 ){
+            return {
+                mess: 'has the same name'
+            }
+        }else {
+            user.password = await bcrypt.hash(user.password,10)
+            return await this.userRepository.save(user)
+        }
    }
 
    checkLogin = async (userLogin)=>{
@@ -51,6 +68,7 @@ export class UserService {
                  return user
              }
          }
+
 
    }
 
