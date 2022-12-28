@@ -1,5 +1,11 @@
-export declare class WalletService {
-    walletRepository: any;
+import { Request, Response } from "express";
+declare class WalletService {
+    private walletRepository;
     constructor();
-    findAllWallet: () => Promise<any>;
+    findAll: () => Promise<any>;
+    create: (wallet: any) => Promise<any>;
+    delete: (req: Request, res: Response) => Promise<void>;
+    edit: (req: Request, res: Response) => Promise<any>;
 }
+declare const _default: WalletService;
+export default _default;

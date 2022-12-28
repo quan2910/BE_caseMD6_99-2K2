@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity({name:'categories'})
+@Entity()
 export class Category{
     @PrimaryGeneratedColumn({type:'int'})
     public readonly idCategory: number;
