@@ -72,7 +72,8 @@ where username = '${user.username}'`;
             return check;
         };
         this.createUser = async (user) => {
-            await this.userRepository.save(user);
+            let newUser = await this.userRepository.save(user);
+            return newUser;
         };
         this.updateCheckBegin = async (idUser) => {
             this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`);

@@ -9,7 +9,7 @@ export declare class UserService {
         authenticUser: boolean;
     }>;
     checkRegister: (userRegister: any) => Promise<any>;
-    createUser: (user: any) => Promise<void>;
+    createUser: (user: any) => Promise<any>;
     updateCheckBegin: (idUser: any) => Promise<void>;
     checkLoginFb: (userFb: any) => Promise<any>;
 }

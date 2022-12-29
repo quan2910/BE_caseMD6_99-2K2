@@ -55,14 +55,20 @@ class UserController {
             }
         };
         this.loginFB = async (req, res) => {
-            let checkRegister = await this.userService.checkLoginFb(req.body);
-            if (checkRegister) {
-                await this.login(req, res);
+            try {
+                let checkRegister = await this.userService.checkLoginFb(req.body);
+                if (checkRegister) {
+                    await this.login(req, res);
+                }
+                else {
+                    let newUser = await this.userService.createUser(req.body);
+                    let user = { check: true, authenticUser: [] };
+                    user.authenticUser.push(newUser);
+                    await res.json({ user: user });
+                }
             }
-            else {
-                await this.userService.createUser(req.body);
-                let user = await this.userService.checkLogin(req.body);
-                await res.json({ user: user });
+            catch (e) {
+                console.log(e.message);
             }
         };
         this.userService = new user_service_1.UserService();
