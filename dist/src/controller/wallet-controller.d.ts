@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
+import { UserService } from "../service/user-service";
 declare class WalletController {
+    userService: UserService;
+    constructor();
     showAll: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
     createWallet: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
     removeWallet: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;

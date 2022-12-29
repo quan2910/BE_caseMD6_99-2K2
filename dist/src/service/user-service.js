@@ -74,6 +74,9 @@ where username = '${user.username}'`;
         this.createUser = async (user) => {
             await this.userRepository.save(user);
         };
+        this.updateCheckBegin = async (idUser) => {
+            this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`);
+        };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);

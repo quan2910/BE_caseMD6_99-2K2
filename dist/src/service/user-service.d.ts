@@ -10,4 +10,5 @@ export declare class UserService {
     }>;
     checkRegister: (userRegister: any) => Promise<any>;
     createUser: (user: any) => Promise<void>;
+    updateCheckBegin: (idUser: any) => Promise<void>;
 }

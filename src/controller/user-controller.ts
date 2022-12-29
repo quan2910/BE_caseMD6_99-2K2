@@ -54,6 +54,16 @@ class UserController {
         }
 
     }
+    changeCheckBegin =async (req:Request,res:Response)=>{
+       try {
+           let {id} = req.params
+           await this.userService.updateCheckBegin(id)
+           res.json({mess:"thành công"})
+       }catch (e) {
+           res.json(e.message)
+       }
+
+    }
 
 
 }
