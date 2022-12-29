@@ -7,16 +7,13 @@ class WalletService {
     constructor() {
         this.findAll = async () => {
             let wallets = await this.walletRepository.find();
-            console.log(wallets);
             return wallets;
         };
         this.create = async (wallet) => {
-            console.log(wallet);
             return await this.walletRepository.save(wallet);
         };
         this.delete = async (req, res) => {
             let idWallet = req.params.idWallet;
-            console.log(idWallet);
             await this.walletRepository.delete(idWallet);
             res.status(201).json({
                 mess: 'Delete Success !!'
