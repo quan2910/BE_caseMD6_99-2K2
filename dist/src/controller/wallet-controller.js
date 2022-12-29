@@ -12,6 +12,7 @@ class WalletController {
         };
         this.createWallet = async (req, res) => {
             try {
+                console.log(req.body);
                 let wallet = await wallet_service_1.default.create(req.body);
                 return res.status(200).json({
                     wallet: wallet,
@@ -55,6 +56,11 @@ class WalletController {
             if (userId) {
                 return res.status(200).json(wallets);
             }
+        };
+        this.showWalletDetail = async (req, res) => {
+            let idUser = req.params.id;
+            let walletHome = await wallet_service_2.default.getWalletDetail(idUser);
+            res.json(walletHome);
         };
     }
 }
