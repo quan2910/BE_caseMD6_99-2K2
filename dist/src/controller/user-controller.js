@@ -44,34 +44,31 @@ class UserController {
                 });
             }
         };
-        this.edit = async (req, res) => {
+        this.changeCheckBegin = async (req, res) => {
             try {
-                let edit = await this.userService.edit(req, res);
-                console.log('edit', edit);
-                return res.status(200).json({
-                    edit,
-                    mess: "edit thanh cong"
-                });
+                let { id } = req.params;
+                await this.userService.updateCheckBegin(id);
+                res.json({ mess: "thành công" });
             }
             catch (e) {
-                res.json({
-                    err: e.mess
-                });
+                res.json(e.message);
             }
         };
-        this.changePassword = async (req, res) => {
-            let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
-            if (!user.check) {
-                res.json({
-                    user,
-                    mess: "mk cu khong dung"
-                });
+        this.loginFB = async (req, res) => {
+            try {
+                let checkRegister = await this.userService.checkLoginFb(req.body);
+                if (checkRegister) {
+                    await this.login(req, res);
+                }
+                else {
+                    let newUser = await this.userService.createUser(req.body);
+                    let user = { check: true, authenticUser: [] };
+                    user.authenticUser.push(newUser);
+                    await res.json({ user: user });
+                }
             }
-            else {
-                res.json({
-                    user,
-                    mess: "doi mk thanh cong"
-                });
+            catch (e) {
+                console.log(e.message);
             }
         };
         this.userService = new user_service_1.UserService();

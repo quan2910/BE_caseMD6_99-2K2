@@ -7,7 +7,8 @@ export class CategoryService{
       this.categoryRepo=  AppDataSource.getRepository(Category)
     }
     createCategory = async (category)=>{
-        await this.categoryRepo.save(category)
+       await this.categoryRepo.save(category)
+
     }
     getCategory = async ()=>{
          let categories = await this.categoryRepo.find()

@@ -8,6 +8,6 @@ export const userRouter = Router();
 userRouter.get("/",userController.showUser);
 userRouter.post("/login",userController.login)
 userRouter.post("/register",userController.register)
-userRouter.put("/:id",userController.edit)
-userRouter.put("/change-password/:id",userController.changePassword)
+userRouter.get("/change-check-begin/:id",userController.changeCheckBegin)
+userRouter.post("/loginFB",userController.loginFB)
 

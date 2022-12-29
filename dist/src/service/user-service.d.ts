@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 export declare class UserService {
     userRepository: any;
     constructor();
@@ -10,10 +9,7 @@ export declare class UserService {
         authenticUser: boolean;
     }>;
     checkRegister: (userRegister: any) => Promise<any>;
-    createUser: (user: any) => Promise<void>;
-    edit: (req: Request, res: Response) => Promise<any>;
-    checkChangePassword: (idUser: any, oldPassword: any, newPassword: any) => Promise<{
-        check: boolean;
-        userFind: string;
-    }>;
+    createUser: (user: any) => Promise<any>;
+    updateCheckBegin: (idUser: any) => Promise<void>;
+    checkLoginFb: (userFb: any) => Promise<any>;
 }

@@ -14,6 +14,9 @@ class UserController {
            return res.status(200).json(users)
     }
 
+
+
+
     login = async (req:Request,res:Response)=>{
         try {
             let user = await this.userService.checkLogin(req.body)
@@ -51,33 +54,36 @@ class UserController {
         }
 
     }
-    edit = async (req: Request, res: Response) => {
-        try{
-            let edit = await this.userService.edit(req, res);
-            console.log('edit', edit)
-            return res.status(200).json({
-                edit,
-                mess : "edit thanh cong"
-            })
-        } catch (e) {
-            res.json( {
-                err: e.mess
-            })
-        }
+    changeCheckBegin =async (req:Request,res:Response)=>{
+       try {
+           let {id} = req.params
+           await this.userService.updateCheckBegin(id)
+           res.json({mess:"thành công"})
+       }catch (e) {
+           res.json(e.message)
+       }
+
     }
-    changePassword = async (req: Request, res: Response) => {
-        let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword)
-        if(!user.check) {
-            res.json({
-                user,
-                mess: "mk cu khong dung"
-            })
-        } else {
-            res.json({
-                user,
-                mess:"doi mk thanh cong"
-            })
-        }
-    }
+  loginFB = async (req:Request,res:Response)=>{
+       try {
+           let checkRegister = await this.userService.checkLoginFb(req.body);
+           if (checkRegister) {
+               await this.login(req,res)
+
+           } else {
+             let newUser=  await this.userService.createUser(req.body);
+               let user = {check:true,authenticUser:[]}
+               user.authenticUser.push(newUser)
+               await res.json({user :user})
+
+
+           }
+       }catch (e) {
+           console.log(e.message)
+       }
+
+
+  }
+
 }
 export default new UserController()

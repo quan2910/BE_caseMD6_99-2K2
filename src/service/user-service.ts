@@ -83,7 +83,22 @@ export class UserService {
     }
 
     createUser = async (user) => {
-        await this.userRepository.save(user);
+      let newUser =  await this.userRepository.save(user);
+        return newUser
+    }
+    updateCheckBegin = async (idUser)=>{
+          this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`)
+    }
+    checkLoginFb = async (userFb)=>{
+        let userFind = await this.userRepository.query(`select * from users where username = '${userFb.username}'`);
+        let check;
+        if (userFind.length !== 0) {
+            check = true
+        } else {
+            userFb.password = await bcrypt.hash(userFb.password, 10)
+            check = false
+        }
+        return check
     }
     edit = async (req: Request, res: Response) => {
         let idUser = +req.params.id;
