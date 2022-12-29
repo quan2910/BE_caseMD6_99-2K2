@@ -66,6 +66,7 @@ class WalletController {
             let walletHome =  await walletService.getWalletDetail(idUser)
             res.json(walletHome)
         }catch (e) {
+            console.log(e.message)
             res.json(e.message)
         }
     }

@@ -64,6 +64,7 @@ class WalletController {
                 res.json(walletHome);
             }
             catch (e) {
+                console.log(e.message);
                 res.json(e.message);
             }
         };
