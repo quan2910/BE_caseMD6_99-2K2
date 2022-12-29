@@ -17,8 +17,9 @@ class UserService {
         };
         this.save = async (user) => {
             console.log(user);
-            let query = `select * from users 
-where username = '${user.username}'`;
+            let query = `select *
+                     from users
+                     where username = '${user.username}'`;
             let userFind = await this.userRepository.query(query);
             if (userFind.length != 0) {
                 return {
@@ -34,11 +35,11 @@ where username = '${user.username}'`;
             let user = {
                 check: false,
                 token: "",
-                authenticUser: false,
-                username: "",
-                idUser: 0
+                authenticUser: false
             };
-            let userFind = await this.userRepository.query(`select * from users where username = "${userLogin.username}"`);
+            let userFind = await this.userRepository.query(`select *
+                                                        from users
+                                                        where username = "${userLogin.username}"`);
             console.log(userFind);
             if (userFind.length == 0) {
                 user.check = false;
@@ -57,14 +58,15 @@ where username = '${user.username}'`;
                     });
                     user.token = token;
                     user.check = true;
-                    user.username = userFind[0].username;
-                    user.idUser = userFind[0].idUser;
+                    user.authenticUser = userFind;
                     return user;
                 }
             }
         };
         this.checkRegister = async (userRegister) => {
-            let userFind = await this.userRepository.query(`select * from users where username = '${userRegister.username}'`);
+            let userFind = await this.userRepository.query(`select *
+                                                        from users
+                                                        where username = '${userRegister.username}'`);
             let check;
             if (userFind.length !== 0) {
                 check = true;
@@ -77,6 +79,42 @@ where username = '${user.username}'`;
         };
         this.createUser = async (user) => {
             await this.userRepository.save(user);
+        };
+        this.edit = async (req, res) => {
+            let idUser = +req.params.id;
+            let data = req.body;
+            let update = await this.userRepository.update(idUser, {
+                username: data.username,
+                password: await bcrypt_1.default.hash(data.password, 10),
+                avatar: data.avatar,
+                address: data.address,
+                sex: data.sex
+            });
+            return update;
+        };
+        this.checkChangePassword = async (idUser, oldPassword, newPassword) => {
+            let user = {
+                check: false,
+                userFind: ''
+            };
+            let userFind = await this.userRepository.query(`select * from users where idUser = ${idUser}`);
+            if (userFind.length === 0) {
+                user.check = false;
+            }
+            else {
+                let compare = await bcrypt_1.default.compare(oldPassword, userFind[0].password);
+                if (!compare) {
+                    user.userFind = userFind;
+                    user.check = false;
+                }
+                if (compare) {
+                    newPassword = await bcrypt_1.default.hash(newPassword, 10);
+                    await this.userRepository.query(`UPDATE users SET password = '${newPassword}' where idUser = '${idUser}'`);
+                    user.check = true;
+                    user.userFind = userFind;
+                }
+            }
+            return user;
         };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');

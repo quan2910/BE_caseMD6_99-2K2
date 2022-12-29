@@ -44,6 +44,36 @@ class UserController {
                 });
             }
         };
+        this.edit = async (req, res) => {
+            try {
+                let edit = await this.userService.edit(req, res);
+                console.log('edit', edit);
+                return res.status(200).json({
+                    edit,
+                    mess: "edit thanh cong"
+                });
+            }
+            catch (e) {
+                res.json({
+                    err: e.mess
+                });
+            }
+        };
+        this.changePassword = async (req, res) => {
+            let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
+            if (!user.check) {
+                res.json({
+                    user,
+                    mess: "mk cu khong dung"
+                });
+            }
+            else {
+                res.json({
+                    user,
+                    mess: "doi mk thanh cong"
+                });
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }

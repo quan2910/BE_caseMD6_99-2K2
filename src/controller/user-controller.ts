@@ -14,9 +14,6 @@ class UserController {
            return res.status(200).json(users)
     }
 
-
-
-
     login = async (req:Request,res:Response)=>{
         try {
             let user = await this.userService.checkLogin(req.body)
@@ -54,7 +51,33 @@ class UserController {
         }
 
     }
-
-
+    edit = async (req: Request, res: Response) => {
+        try{
+            let edit = await this.userService.edit(req, res);
+            console.log('edit', edit)
+            return res.status(200).json({
+                edit,
+                mess : "edit thanh cong"
+            })
+        } catch (e) {
+            res.json( {
+                err: e.mess
+            })
+        }
+    }
+    changePassword = async (req: Request, res: Response) => {
+        let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword)
+        if(!user.check) {
+            res.json({
+                user,
+                mess: "mk cu khong dung"
+            })
+        } else {
+            res.json({
+                user,
+                mess:"doi mk thanh cong"
+            })
+        }
+    }
 }
 export default new UserController()

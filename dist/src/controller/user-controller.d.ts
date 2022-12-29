@@ -5,6 +5,8 @@ declare class UserController {
     showUser: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
     login: (req: Request, res: Response) => Promise<void>;
     register: (req: Request, res: Response) => Promise<void>;
+    edit: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
+    changePassword: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: UserController;
 export default _default;
