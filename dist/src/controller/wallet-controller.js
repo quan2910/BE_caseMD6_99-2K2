@@ -49,6 +49,13 @@ class WalletController {
                 });
             }
         };
+        this.showWalletByIdUser = async (req, res) => {
+            let userId = +req.params.userId;
+            let wallets = await wallet_service_1.default.findByIdUser(req, res);
+            if (userId) {
+                return res.status(200).json(wallets);
+            }
+        };
     }
 }
 exports.default = new WalletController();

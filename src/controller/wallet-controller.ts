@@ -3,7 +3,6 @@ import WalletService from "../service/wallet-service";
 
 
 class WalletController {
-
     showAll = async (req: Request, res: Response) => {
         let wallets = await WalletService.findAll()
         return res.status(200).json(wallets);
@@ -50,7 +49,14 @@ class WalletController {
                 }
             )
         }
+    }
 
+    showWalletByIdUser = async (req: Request, res: Response) => {
+        let userId = +req.params.userId
+        let wallets = await WalletService.findByIdUser(req, res)
+        if(userId) {
+            return res.status(200).json(wallets)
+        }
     }
 }
 

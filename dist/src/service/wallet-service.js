@@ -24,6 +24,11 @@ class WalletService {
             let wallets = await this.walletRepository.update({ idWallet: idWallet }, newWallet);
             return wallets;
         };
+        this.findByIdUser = async (req, res) => {
+            let userId = +req.params.userId;
+            let wallets = await this.walletRepository.findBy({ userId: userId });
+            return wallets;
+        };
         this.walletRepository = data_source_1.AppDataSource.getRepository(wallet_1.Wallet);
     }
 }

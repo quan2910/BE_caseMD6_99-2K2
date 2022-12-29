@@ -31,6 +31,12 @@ class WalletService {
         let wallets = await this.walletRepository.update({idWallet:idWallet},newWallet)
         return wallets
     }
+
+    findByIdUser = async (req: Request, res: Response) => {
+        let userId = + req.params.userId
+        let wallets = await this.walletRepository.findBy({userId: userId})
+        return wallets
+    }
 }
 
 export default new WalletService();

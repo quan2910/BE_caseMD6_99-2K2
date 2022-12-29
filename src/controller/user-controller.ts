@@ -15,8 +15,6 @@ class UserController {
     }
 
 
-
-
     login = async (req:Request,res:Response)=>{
         try {
             let user = await this.userService.checkLogin(req.body)
