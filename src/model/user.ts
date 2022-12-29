@@ -16,4 +16,6 @@ export class User {
     public address: string;
     @Column({type:'int',default:0})
     public age: number;
+    @Column({type:"boolean",default:false})
+    public checkBegin : boolean
 }

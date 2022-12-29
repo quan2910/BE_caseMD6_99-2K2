@@ -1,9 +1,14 @@
 import {Request, Response} from "express";
 import WalletService from "../service/wallet-service";
 import walletService from "../service/wallet-service";
+import {UserService} from "../service/user-service";
 
 
 class WalletController {
+     userService :UserService
+    constructor() {
+         this.userService = new UserService()
+    }
     showAll = async (req: Request, res: Response) => {
         let wallets = await WalletService.findAll()
         return res.status(200).json(wallets);
@@ -11,6 +16,8 @@ class WalletController {
 
     createWallet = async (req: Request, res: Response) => {
         try {
+
+           await this.userService.updateCheckBegin(req.body.userId)
             let wallet = await WalletService.create(req.body)
             return res.status(200).json({
                 wallet: wallet,
@@ -50,14 +57,7 @@ class WalletController {
                 }
             )
         }
-    }
 
-    showWalletByIdUser = async (req: Request, res: Response) => {
-        let userId = +req.params.userId
-        let wallets = await WalletService.findByIdUser(req, res)
-        if(userId) {
-            return res.status(200).json(wallets)
-        }
     }
     showWalletDetail = async (req:Request,res:Response)=>{
 
@@ -66,7 +66,6 @@ class WalletController {
             let walletHome =  await walletService.getWalletDetail(idUser)
             res.json(walletHome)
         }catch (e) {
-            console.log(e.message)
             res.json(e.message)
         }
     }

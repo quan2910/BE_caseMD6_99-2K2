@@ -41,7 +41,7 @@ export class WalletService {
 
 
             let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
-            let transactions = await this.walletRepository.query(`select * from transaction join categories on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+            let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
             let walletHome = {
                 wallet : wallets,
                 transactions :transactions

@@ -44,6 +44,16 @@ class UserController {
                 });
             }
         };
+        this.changeCheckBegin = async (req, res) => {
+            try {
+                let { id } = req.params;
+                await this.userService.updateCheckBegin(id);
+                res.json({ mess: "thành công" });
+            }
+            catch (e) {
+                res.json(e.message);
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }

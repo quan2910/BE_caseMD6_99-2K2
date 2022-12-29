@@ -82,4 +82,7 @@ where username = '${user.username}'`
     createUser = async (user) => {
         await this.userRepository.save(user);
     }
+    updateCheckBegin = async (idUser)=>{
+          this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`)
+    }
 }
