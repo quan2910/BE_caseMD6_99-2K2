@@ -51,9 +51,14 @@ class WalletController {
             }
         };
         this.showWalletDetail = async (req, res) => {
-            let idUser = req.params.id;
-            let walletHome = await wallet_service_2.default.getWalletDetail(idUser);
-            res.json(walletHome);
+            try {
+                let idUser = req.params.id;
+                let walletHome = await wallet_service_2.default.getWalletDetail(idUser);
+                res.json(walletHome);
+            }
+            catch (e) {
+                res.json(e.message);
+            }
         };
     }
 }
