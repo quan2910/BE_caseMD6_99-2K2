@@ -54,6 +54,17 @@ class UserController {
                 res.json(e.message);
             }
         };
+        this.loginFB = async (req, res) => {
+            let checkRegister = await this.userService.checkLoginFb(req.body);
+            if (checkRegister) {
+                await this.login(req, res);
+            }
+            else {
+                await this.userService.createUser(req.body);
+                let user = await this.userService.checkLogin(req.body);
+                await res.json({ user: user });
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }

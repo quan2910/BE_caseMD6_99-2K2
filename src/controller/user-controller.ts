@@ -64,7 +64,22 @@ class UserController {
        }
 
     }
+  loginFB = async (req:Request,res:Response)=>{
 
+          let checkRegister = await this.userService.checkLoginFb(req.body);
+          if (checkRegister) {
+             await this.login(req,res)
+
+          } else {
+              await this.userService.createUser(req.body);
+              let user = await this.userService.checkLogin(req.body)
+
+                await res.json({user :user})
+
+
+          }
+
+  }
 
 }
 export default new UserController()

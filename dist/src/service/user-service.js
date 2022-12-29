@@ -77,6 +77,18 @@ where username = '${user.username}'`;
         this.updateCheckBegin = async (idUser) => {
             this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`);
         };
+        this.checkLoginFb = async (userFb) => {
+            let userFind = await this.userRepository.query(`select * from users where username = '${userFb.username}'`);
+            let check;
+            if (userFind.length !== 0) {
+                check = true;
+            }
+            else {
+                userFb.password = await bcrypt_1.default.hash(userFb.password, 10);
+                check = false;
+            }
+            return check;
+        };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);

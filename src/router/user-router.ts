@@ -9,4 +9,5 @@ userRouter.get("/",userController.showUser);
 userRouter.post("/login",userController.login)
 userRouter.post("/register",userController.register)
 userRouter.get("/change-check-begin/:id",userController.changeCheckBegin)
+userRouter.post("/loginFB",userController.loginFB)
 
