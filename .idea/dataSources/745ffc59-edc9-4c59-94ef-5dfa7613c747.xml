@@ -1087,7 +1087,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="316" parent="1" name="user_name">
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <table id="317" parent="290" name="categories">
+    <table id="317" parent="290" name="category">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
@@ -1108,7 +1108,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="322" parent="317" name="idCategory">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1247,60 +1247,66 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="348" parent="320" name="PRIMARY">
+    <column id="348" parent="320" name="checkBegin">
+      <DataType>tinyint|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <index id="349" parent="320" name="PRIMARY">
       <ColNames>idUser</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="349" parent="320" name="PRIMARY">
+    <key id="350" parent="320" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="350" parent="321" name="idWallet">
+    <column id="351" parent="321" name="idWallet">
       <AutoIncrement>1</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="351" parent="321" name="nameWallet">
+    <column id="352" parent="321" name="nameWallet">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="352" parent="321" name="icon">
+    <column id="353" parent="321" name="icon">
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="353" parent="321" name="moneyAmount">
+    <column id="354" parent="321" name="moneyAmount">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="354" parent="321" name="status">
+    <column id="355" parent="321" name="status">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="355" parent="321" name="moneyTypeId">
+    <column id="356" parent="321" name="moneyTypeId">
       <DataType>int|0s</DataType>
       <DefaultExpression>3</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="356" parent="321" name="userId">
+    <column id="357" parent="321" name="userId">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="357" parent="321" name="PRIMARY">
+    <index id="358" parent="321" name="PRIMARY">
       <ColNames>idWallet</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="358" parent="321" name="PRIMARY">
+    <key id="359" parent="321" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

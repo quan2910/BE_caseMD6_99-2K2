@@ -60,7 +60,6 @@ class WalletController {
 
     }
     showWalletDetail = async (req:Request,res:Response)=>{
-
         try{
             let idUser = req.params.id
             let walletHome =  await walletService.getWalletDetail(idUser)

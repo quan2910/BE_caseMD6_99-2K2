@@ -52,13 +52,6 @@ class WalletController {
                 });
             }
         };
-        this.showWalletByIdUser = async (req, res) => {
-            let userId = +req.params.userId;
-            let wallets = await wallet_service_1.default.findByIdUser(req, res);
-            if (userId) {
-                return res.status(200).json(wallets);
-            }
-        };
         this.showWalletDetail = async (req, res) => {
             try {
                 let idUser = req.params.id;
@@ -66,7 +59,6 @@ class WalletController {
                 res.json(walletHome);
             }
             catch (e) {
-                console.log(e.message);
                 res.json(e.message);
             }
         };

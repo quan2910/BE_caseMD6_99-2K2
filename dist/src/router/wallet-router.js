@@ -12,6 +12,5 @@ exports.walletRouter.get('/', wallet_controller_1.default.showAll);
 exports.walletRouter.post('/create', wallet_controller_1.default.createWallet);
 exports.walletRouter.delete('/:idWallet', wallet_controller_1.default.removeWallet);
 exports.walletRouter.put('/:idWallet', wallet_controller_1.default.editWallet);
-exports.walletRouter.get('/find-by-idUser/:userId', wallet_controller_1.default.showWalletByIdUser);
 exports.walletRouter.get("/detail-wallet/:id", wallet_controller_1.default.showWalletDetail);
 //# sourceMappingURL=wallet-router.js.map
