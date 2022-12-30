@@ -7,4 +7,6 @@ export declare class User {
     address: string;
     age: number;
     checkBegin: boolean;
+    phone: string;
+    fullName: string;
 }

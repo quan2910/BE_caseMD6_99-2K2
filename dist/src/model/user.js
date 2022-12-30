@@ -45,6 +45,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: "boolean", default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "checkBegin", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", nullable: true, }),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "varchar", nullable: true, }),
+    __metadata("design:type", String)
+], User.prototype, "fullName", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'users' })
 ], User);

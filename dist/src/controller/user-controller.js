@@ -54,6 +54,45 @@ class UserController {
                 res.json(e.message);
             }
         };
+        this.loginFB = async (req, res) => {
+            try {
+                let checkRegister = await this.userService.checkLoginFb(req.body);
+                if (checkRegister) {
+                    await this.login(req, res);
+                }
+                else {
+                    let newUser = await this.userService.createUser(req.body);
+                    let user = { check: true, authenticUser: [] };
+                    user.authenticUser.push(newUser);
+                    await res.json({ user: user });
+                }
+            }
+            catch (e) {
+                console.log(e.message);
+            }
+        };
+        this.updateProfile = async (req, res) => {
+            let profileEdit = req.body;
+            await this.userService.updateUser(profileEdit, profileEdit.idUser);
+            res.json({ mess: "thành công" });
+        };
+        this.searchById = async (req, res) => {
+            let idUser = req.params.id;
+            let user = await this.userService.findUserById(idUser);
+            let a = { authenticUser: [] };
+            a.authenticUser.push(user);
+            res.json({ user: a });
+        };
+        this.saveAvatar = async (req, res) => {
+            let { idUser } = req.body;
+            let file = req.files;
+            if (file) {
+                let image = file.File;
+                image.mv('./public/upload/' + image.name);
+                let nameImage = 'http://localhost:3000/upload/' + image.name;
+                await this.userService.updateUser({ avatar: nameImage }, idUser);
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }

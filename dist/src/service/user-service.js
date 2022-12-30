@@ -72,10 +72,30 @@ where username = '${user.username}'`;
             return check;
         };
         this.createUser = async (user) => {
-            await this.userRepository.save(user);
+            let newUser = await this.userRepository.save(user);
+            return newUser;
         };
         this.updateCheckBegin = async (idUser) => {
             this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`);
+        };
+        this.checkLoginFb = async (userFb) => {
+            let userFind = await this.userRepository.query(`select * from users where username = '${userFb.username}'`);
+            let check;
+            if (userFind.length !== 0) {
+                check = true;
+            }
+            else {
+                userFb.password = await bcrypt_1.default.hash(userFb.password, 10);
+                check = false;
+            }
+            return check;
+        };
+        this.updateUser = async (editUser, idUser) => {
+            await this.userRepository.update({ idUser: idUser }, editUser);
+        };
+        this.findUserById = async (idUser) => {
+            let user = await this.userRepository.findOneById(idUser);
+            return user;
         };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
