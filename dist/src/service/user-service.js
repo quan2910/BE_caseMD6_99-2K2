@@ -17,9 +17,8 @@ class UserService {
         };
         this.save = async (user) => {
             console.log(user);
-            let query = `select *
-                     from users
-                     where username = '${user.username}'`;
+            let query = `select * from users 
+where username = '${user.username}'`;
             let userFind = await this.userRepository.query(query);
             if (userFind.length != 0) {
                 return {
@@ -37,10 +36,7 @@ class UserService {
                 token: "",
                 authenticUser: false
             };
-            let userFind = await this.userRepository.query(`select *
-                                                        from users
-                                                        where username = "${userLogin.username}"`);
-            console.log(userFind);
+            let userFind = await this.userRepository.query(`select * from users where username = "${userLogin.username}"`);
             if (userFind.length == 0) {
                 user.check = false;
                 return user;
@@ -64,9 +60,7 @@ class UserService {
             }
         };
         this.checkRegister = async (userRegister) => {
-            let userFind = await this.userRepository.query(`select *
-                                                        from users
-                                                        where username = '${userRegister.username}'`);
+            let userFind = await this.userRepository.query(`select * from users where username = '${userRegister.username}'`);
             let check;
             if (userFind.length !== 0) {
                 check = true;
@@ -95,18 +89,6 @@ class UserService {
                 check = false;
             }
             return check;
-        };
-        this.edit = async (req, res) => {
-            let idUser = +req.params.id;
-            let data = req.body;
-            let update = await this.userRepository.update(idUser, {
-                username: data.username,
-                password: await bcrypt_1.default.hash(data.password, 10),
-                avatar: data.avatar,
-                address: data.address,
-                sex: data.sex
-            });
-            return update;
         };
         this.checkChangePassword = async (idUser, oldPassword, newPassword) => {
             let user = {
