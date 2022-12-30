@@ -2,7 +2,7 @@ import {AppDataSource} from "../data-source";
 import {Wallet} from "../model/wallet";
 import {Request, Response} from "express";
 
-class WalletService {
+export class WalletService {
     private walletRepository: any;
 
     constructor() {
@@ -30,6 +30,18 @@ class WalletService {
         let newWallet = req.body;
         let wallets = await this.walletRepository.update({idWallet:idWallet},newWallet)
         return wallets
+    }
+    getWalletDetail = async (idUser)=>{
+
+
+            let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
+            let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+            let walletHome = {
+                wallet : wallets,
+                transactions :transactions
+            }
+            return walletHome
+
     }
 }
 

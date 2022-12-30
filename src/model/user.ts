@@ -16,4 +16,12 @@ export class User {
     public address: string;
     @Column({type:'int',default:0})
     public age: number;
+    @Column({type:"boolean",default:false})
+    public checkBegin : boolean
+    @Column({type:"varchar",nullable: true,})
+    public phone : string;
+@Column({type:"varchar",nullable: true,})
+    public fullName : string;
+
+
 }

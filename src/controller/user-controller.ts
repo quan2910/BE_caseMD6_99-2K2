@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {UserService} from "../service/user-service";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import {UploadedFile} from "express-fileupload";
 class UserController {
     private userService: UserService
 
@@ -54,6 +54,56 @@ class UserController {
         }
 
     }
+    changeCheckBegin =async (req:Request,res:Response)=>{
+       try {
+           let {id} = req.params
+           await this.userService.updateCheckBegin(id)
+           res.json({mess:"thành công"})
+       }catch (e) {
+           res.json(e.message)
+       }
+
+    }
+  loginFB = async (req:Request,res:Response)=>{
+       try {
+           let checkRegister = await this.userService.checkLoginFb(req.body);
+           if (checkRegister) {
+               await this.login(req,res)
+
+           } else {
+             let newUser=  await this.userService.createUser(req.body);
+               let user = {check:true,authenticUser:[]}
+               user.authenticUser.push(newUser)
+               await res.json({user :user})
+
+
+           }
+       }catch (e) {
+           console.log(e.message)
+       }
+  }
+  updateProfile =async (req:Request,res:Response)=>{
+        let profileEdit = req.body
+      await this.userService.updateUser(profileEdit,profileEdit.idUser)
+      res.json({mess:"thành công"})
+  }
+  searchById = async (req:Request,res:Response)=>{
+      let idUser = req.params.id
+      let user =await this.userService.findUserById(idUser)
+      let a = {authenticUser: []}
+      a.authenticUser.push(user)
+      res.json({user:a})
+  }
+  saveAvatar  = async (req:Request,res:Response)=>{
+      let {idUser}=req.body
+     let file = req.files
+      if (file) {
+          let image = file.File as UploadedFile
+          image.mv('./public/upload/' + image.name)
+          let nameImage = 'http://localhost:3000/upload/' + image.name
+          await this.userService.updateUser({avatar:nameImage},idUser)
+      }
+  }
 
 
 }
