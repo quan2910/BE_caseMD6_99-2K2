@@ -10,4 +10,6 @@ userRouter.post("/login",userController.login)
 userRouter.post("/register",userController.register)
 userRouter.get("/change-check-begin/:id",userController.changeCheckBegin)
 userRouter.post("/loginFB",userController.loginFB)
+userRouter.post("/change-password/:id",userController.changePassword)
+userRouter.put("/:id",userController.editUser)
 

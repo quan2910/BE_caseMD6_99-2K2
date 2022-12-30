@@ -7,6 +7,20 @@ class UserController {
             let users = await this.userService.getAll();
             return res.status(200).json(users);
         };
+        this.editUser = async (req, res) => {
+            try {
+                let wallets = await this.userService.edit(req, res);
+                return res.status(200).json({
+                    user: wallets,
+                    mess: 'Edit User Success!'
+                });
+            }
+            catch (e) {
+                res.json({
+                    err: e.mess
+                });
+            }
+        };
         this.login = async (req, res) => {
             try {
                 let user = await this.userService.checkLogin(req.body);
@@ -69,6 +83,21 @@ class UserController {
             }
             catch (e) {
                 console.log(e.message);
+            }
+        };
+        this.changePassword = async (req, res) => {
+            let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
+            if (!user.check) {
+                res.json({
+                    user,
+                    mess: "Mat khau hien tai khong dung"
+                });
+            }
+            else {
+                res.json({
+                    user,
+                    mess: "Doi mat khau thanh cong"
+                });
             }
         };
         this.userService = new user_service_1.UserService();

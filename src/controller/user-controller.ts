@@ -9,26 +9,39 @@ class UserController {
     constructor() {
         this.userService = new UserService()
     }
-    showUser = async (req:Request,res:Response)=>{
-           let users = await this.userService.getAll()
-           return res.status(200).json(users)
+
+    showUser = async (req: Request, res: Response) => {
+        let users = await this.userService.getAll()
+        return res.status(200).json(users)
+    }
+    editUser = async (req: Request, res: Response) => {
+        try {
+            let wallets = await this.userService.edit(req, res);
+            return res.status(200).json({
+                user: wallets,
+                mess: 'Edit User Success!'
+            })
+        } catch (e) {
+            res.json({
+                    err: e.mess
+                }
+            )
+        }
+
     }
 
-
-
-
-    login = async (req:Request,res:Response)=>{
+    login = async (req: Request, res: Response) => {
         try {
             let user = await this.userService.checkLogin(req.body)
-            if(user.check===false){
-                res.json({mess:"sai tài khoản"})
-            }else {
-                res.json({user :user})
+            if (user.check === false) {
+                res.json({mess: "sai tài khoản"})
+            } else {
+                res.json({user: user})
             }
-        }catch (e) {
+        } catch (e) {
             res.json({
-                err :e.message
-            }
+                    err: e.message
+                }
             )
         }
     }
@@ -46,44 +59,56 @@ class UserController {
                     mess: "Tạo tài khoản thành công"
                 })
             }
-        }catch (e) {
+        } catch (e) {
             res.json({
-                    err :e.message
+                    err: e.message
                 }
             )
         }
 
     }
-    changeCheckBegin =async (req:Request,res:Response)=>{
-       try {
-           let {id} = req.params
-           await this.userService.updateCheckBegin(id)
-           res.json({mess:"thành công"})
-       }catch (e) {
-           res.json(e.message)
-       }
+    changeCheckBegin = async (req: Request, res: Response) => {
+        try {
+            let {id} = req.params
+            await this.userService.updateCheckBegin(id)
+            res.json({mess: "thành công"})
+        } catch (e) {
+            res.json(e.message)
+        }
 
     }
-  loginFB = async (req:Request,res:Response)=>{
-       try {
-           let checkRegister = await this.userService.checkLoginFb(req.body);
-           if (checkRegister) {
-               await this.login(req,res)
+    loginFB = async (req: Request, res: Response) => {
+        try {
+            let checkRegister = await this.userService.checkLoginFb(req.body);
+            if (checkRegister) {
+                await this.login(req, res)
 
-           } else {
-             let newUser=  await this.userService.createUser(req.body);
-               let user = {check:true,authenticUser:[]}
-               user.authenticUser.push(newUser)
-               await res.json({user :user})
-
-
-           }
-       }catch (e) {
-           console.log(e.message)
-       }
+            } else {
+                let newUser = await this.userService.createUser(req.body);
+                let user = {check: true, authenticUser: []}
+                user.authenticUser.push(newUser)
+                await res.json({user: user})
 
 
-  }
-
+            }
+        } catch (e) {
+            console.log(e.message)
+        }
+    }
+    changePassword = async (req: Request, res: Response) => {
+        let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword)
+        if(!user.check) {
+            res.json({
+                user,
+                mess: "Mat khau hien tai khong dung"
+            })
+        } else {
+            res.json({
+                user,
+                mess: "Doi mat khau thanh cong"
+            })
+        }
+    }
 }
+
 export default new UserController()
