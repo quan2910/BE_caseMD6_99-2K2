@@ -8,7 +8,6 @@ export class CategoryService{
     }
     createCategory = async (category)=>{
        await this.categoryRepo.save(category)
-
     }
     getCategory = async ()=>{
          let categories = await this.categoryRepo.find()

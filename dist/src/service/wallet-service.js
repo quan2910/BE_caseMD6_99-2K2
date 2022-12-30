@@ -25,6 +25,11 @@ class WalletService {
             let wallets = await this.walletRepository.update({ idWallet: idWallet }, newWallet);
             return wallets;
         };
+        this.findByIdUser = async (req, res) => {
+            let userId = +req.params.userId;
+            let wallets = await this.walletRepository.findBy({ userId: userId });
+            return wallets;
+        };
         this.getWalletDetail = async (idUser) => {
             let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`);
             let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`);

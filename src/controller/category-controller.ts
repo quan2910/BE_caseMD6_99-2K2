@@ -22,8 +22,6 @@ export class CategoryController{
         try {
             let categories = await this.categoryService.getCategory()
             res.json(categories)
-
-
         }catch (e) {
             res.json(e.message)
         }
