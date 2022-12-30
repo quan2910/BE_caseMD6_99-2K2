@@ -5,4 +5,5 @@ export declare class Transaction {
     totalSpent: number;
     walletId: number;
     categoryId: number;
+    userID: number;
 }

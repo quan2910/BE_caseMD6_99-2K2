@@ -13,6 +13,7 @@ app.use(express_1.default.json());
 app.use((0, express_fileupload_1.default)({
     createParentPath: true
 }));
+app.use(express_1.default.static('public'));
 app.use((0, cors_1.default)());
 app.use("", router_1.router);
 const PORT = 3000;

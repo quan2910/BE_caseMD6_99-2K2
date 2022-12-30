@@ -72,7 +72,8 @@ where username = '${user.username}'`;
             return check;
         };
         this.createUser = async (user) => {
-            await this.userRepository.save(user);
+            let newUser = await this.userRepository.save(user);
+            return newUser;
         };
         this.updateCheckBegin = async (idUser) => {
             this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`);
@@ -88,6 +89,37 @@ where username = '${user.username}'`;
                 check = false;
             }
             return check;
+        };
+        this.updateUser = async (editUser, idUser) => {
+            await this.userRepository.update({ idUser: idUser }, editUser);
+        };
+        this.findUserById = async (idUser) => {
+            let user = await this.userRepository.findOneById(idUser);
+            return user;
+        };
+        this.checkChangePassword = async (idUser, oldPassword, newPassword) => {
+            let user = {
+                check: false,
+                userFind: ''
+            };
+            let userFind = await this.userRepository.query(`select * from users where idUser = ${idUser}`);
+            if (userFind.length === 0) {
+                user.check = false;
+            }
+            else {
+                let compare = await bcrypt_1.default.compare(oldPassword, userFind[0].password);
+                if (!compare) {
+                    user.userFind = userFind;
+                    user.check = false;
+                }
+                if (compare) {
+                    newPassword = await bcrypt_1.default.hash(newPassword, 10);
+                    await this.userRepository.query(`UPDATE users SET password = '${newPassword}' where idUser = '${idUser}'`);
+                    user.check = true;
+                    user.userFind = userFind;
+                }
+            }
+            return user;
         };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');

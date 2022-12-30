@@ -70,5 +70,4 @@ class WalletController {
         }
     }
 }
-
-export default new WalletController();
+export default new WalletController()

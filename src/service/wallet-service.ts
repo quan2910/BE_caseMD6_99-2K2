@@ -25,7 +25,7 @@ export class WalletService {
         })
     }
 
-    edit = async (req:Request,res:Response) => {
+    edit = async (req:Request,res : Response) => {
         let idWallet = +req.params.idWallet;
         let newWallet = req.body;
         let wallets = await this.walletRepository.update({idWallet:idWallet},newWallet)

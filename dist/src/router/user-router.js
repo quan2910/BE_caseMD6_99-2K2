@@ -13,4 +13,8 @@ exports.userRouter.post("/login", user_controller_1.default.login);
 exports.userRouter.post("/register", user_controller_1.default.register);
 exports.userRouter.get("/change-check-begin/:id", user_controller_1.default.changeCheckBegin);
 exports.userRouter.post("/loginFB", user_controller_1.default.loginFB);
+exports.userRouter.put("/profile", user_controller_1.default.updateProfile);
+exports.userRouter.get("/find-by-id/:id", user_controller_1.default.searchById);
+exports.userRouter.post("/avatar", user_controller_1.default.saveAvatar);
+exports.userRouter.post("/change-password/:id", user_controller_1.default.changePassword);
 //# sourceMappingURL=user-router.js.map

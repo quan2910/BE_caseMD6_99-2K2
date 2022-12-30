@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(fileUpload({
     createParentPath: true
 }));
+app.use(express.static('public'))
 app.use(cors())
 app.use("", router);
 const PORT = 3000
