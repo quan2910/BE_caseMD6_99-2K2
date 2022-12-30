@@ -71,6 +71,33 @@ class UserController {
                 console.log(e.message);
             }
         };
+        this.updateProfile = async (req, res) => {
+            let profileEdit = req.body;
+            await this.userService.updateUser(profileEdit, profileEdit.idUser);
+            res.json({ mess: "thành công" });
+        };
+        this.searchById = async (req, res) => {
+            try {
+                let idUser = req.params.id;
+                let user = await this.userService.findUserById(idUser);
+                let a = { authenticUser: [] };
+                a.authenticUser.push(user);
+                res.json({ user: a });
+            }
+            catch (e) {
+                console.log(e.message);
+            }
+        };
+        this.saveAvatar = async (req, res) => {
+            let { idUser } = req.body;
+            let file = req.files;
+            if (file) {
+                let image = file.File;
+                image.mv('./public/upload/' + image.name);
+                let nameImage = 'http://localhost:3000/upload/' + image.name;
+                await this.userService.updateUser({ avatar: nameImage }, idUser);
+            }
+        };
         this.changePassword = async (req, res) => {
             let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
             if (!user.check) {
@@ -84,28 +111,6 @@ class UserController {
                     user,
                     mess: "Doi mat khau thanh cong"
                 });
-            }
-        };
-        this.updateProfile = async (req, res) => {
-            let profileEdit = req.body;
-            await this.userService.updateUser(profileEdit, profileEdit.idUser);
-            res.json({ mess: "thành công" });
-        };
-        this.searchById = async (req, res) => {
-            let idUser = req.params.id;
-            let user = await this.userService.findUserById(idUser);
-            let a = { authenticUser: [] };
-            a.authenticUser.push(user);
-            res.json({ user: a });
-        };
-        this.saveAvatar = async (req, res) => {
-            let { idUser } = req.body;
-            let file = req.files;
-            if (file) {
-                let image = file.File;
-                image.mv('./public/upload/' + image.name);
-                let nameImage = 'http://localhost:3000/upload/' + image.name;
-                await this.userService.updateUser({ avatar: nameImage }, idUser);
             }
         };
         this.userService = new user_service_1.UserService();

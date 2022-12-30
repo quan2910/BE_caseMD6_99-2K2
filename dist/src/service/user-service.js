@@ -90,6 +90,13 @@ where username = '${user.username}'`;
             }
             return check;
         };
+        this.updateUser = async (editUser, idUser) => {
+            await this.userRepository.update({ idUser: idUser }, editUser);
+        };
+        this.findUserById = async (idUser) => {
+            let user = await this.userRepository.findOneById(idUser);
+            return user;
+        };
         this.checkChangePassword = async (idUser, oldPassword, newPassword) => {
             let user = {
                 check: false,
