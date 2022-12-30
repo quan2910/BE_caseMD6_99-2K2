@@ -90,6 +90,13 @@ where username = '${user.username}'`;
             }
             return check;
         };
+        this.updateUser = async (editUser, idUser) => {
+            await this.userRepository.update({ idUser: idUser }, editUser);
+        };
+        this.findUserById = async (idUser) => {
+            let user = await this.userRepository.findOneById(idUser);
+            return user;
+        };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);

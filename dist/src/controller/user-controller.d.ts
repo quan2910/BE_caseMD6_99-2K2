@@ -7,6 +7,9 @@ declare class UserController {
     register: (req: Request, res: Response) => Promise<void>;
     changeCheckBegin: (req: Request, res: Response) => Promise<void>;
     loginFB: (req: Request, res: Response) => Promise<void>;
+    updateProfile: (req: Request, res: Response) => Promise<void>;
+    searchById: (req: Request, res: Response) => Promise<void>;
+    saveAvatar: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: UserController;
 export default _default;

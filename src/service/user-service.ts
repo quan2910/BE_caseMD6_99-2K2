@@ -97,4 +97,11 @@ where username = '${user.username}'`
         }
         return check
     }
+    updateUser =async (editUser,idUser)=>{
+        await this.userRepository.update({idUser:idUser},editUser)
+    }
+    findUserById = async (idUser)=>{
+     let user =  await this.userRepository.findOneById(idUser)
+        return user
+    }
 }

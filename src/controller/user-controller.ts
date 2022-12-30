@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {UserService} from "../service/user-service";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import {UploadedFile} from "express-fileupload";
 class UserController {
     private userService: UserService
 
@@ -81,9 +81,30 @@ class UserController {
        }catch (e) {
            console.log(e.message)
        }
-
-
   }
+  updateProfile =async (req:Request,res:Response)=>{
+        let profileEdit = req.body
+      await this.userService.updateUser(profileEdit,profileEdit.idUser)
+      res.json({mess:"thành công"})
+  }
+  searchById = async (req:Request,res:Response)=>{
+      let idUser = req.params.id
+      let user =await this.userService.findUserById(idUser)
+      let a = {authenticUser: []}
+      a.authenticUser.push(user)
+      res.json({user:a})
+  }
+  saveAvatar  = async (req:Request,res:Response)=>{
+      let {idUser}=req.body
+     let file = req.files
+      if (file) {
+          let image = file.File as UploadedFile
+          image.mv('./public/upload/' + image.name)
+          let nameImage = 'http://localhost:3000/upload/' + image.name
+          await this.userService.updateUser({avatar:nameImage},idUser)
+      }
+  }
+
 
 }
 export default new UserController()
