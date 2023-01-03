@@ -20,8 +20,7 @@ export class User {
     public checkBegin : boolean
     @Column({type:"varchar",nullable: true,})
     public phone : string;
-@Column({type:"varchar",nullable: true,})
+    @Column({type:"varchar",nullable: true,})
     public fullName : string;
-
 
 }
