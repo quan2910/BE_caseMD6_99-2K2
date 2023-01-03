@@ -10,4 +10,5 @@ exports.router = (0, express_1.Router)();
 exports.categoryRouter = (0, express_1.Router)();
 exports.categoryRouter.get('/', category_controller_1.default.showCategory);
 exports.categoryRouter.post('/', category_controller_1.default.saveCategory);
+exports.categoryRouter.put('/edit-category', category_controller_1.default.updateCategory);
 //# sourceMappingURL=categories-router.js.map

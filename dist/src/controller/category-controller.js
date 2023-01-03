@@ -25,6 +25,17 @@ class CategoryController {
                 res.json(e.message);
             }
         };
+        this.updateCategory = async (req, res) => {
+            try {
+                let categoryEdit = req.body;
+                console.log(categoryEdit);
+                let category = await this.categoryService.upDateCategory(categoryEdit.idCategory, categoryEdit);
+                res.json(category);
+            }
+            catch (e) {
+                res.json(e.message);
+            }
+        };
         this.categoryService = new category_service_1.CategoryService();
     }
 }

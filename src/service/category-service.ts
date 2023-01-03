@@ -13,4 +13,11 @@ export class CategoryService{
          let categories = await this.categoryRepo.find()
         return categories
     }
+    findOneCategoryById = async (idCategory) => {
+         let category = await this.categoryRepo.findOneById(idCategory)
+        return category
+    }
+    upDateCategory = async (idCategory, editCategory)=> {
+         await this.categoryRepo.update({idCategory: idCategory}, editCategory)
+    }
 }

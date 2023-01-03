@@ -5,6 +5,7 @@ export declare class CategoryController {
     constructor();
     saveCategory: (req: Request, res: Response) => Promise<void>;
     showCategory: (req: Request, res: Response) => Promise<void>;
+    updateCategory: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: CategoryController;
 export default _default;
