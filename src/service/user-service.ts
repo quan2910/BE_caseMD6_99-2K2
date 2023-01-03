@@ -23,7 +23,9 @@ export class UserService {
         let user = {
             check :false,
             token : "",
-            authenticUser :false
+            authenticUser :false,
+            username: '',
+            userId: 0
         }
         let userFind =await this.userRepository.query(`select * from users where username = "${userLogin.username}"`)
          if(userFind.length==0){
@@ -42,7 +44,9 @@ export class UserService {
                  })
                  user.token = token;
                  user.check = true;
-                 user.authenticUser = userFind
+                 user.authenticUser = userFind;
+                 user.username = userFind[0].username;
+                 user.userId = userFind[0].userId;
                  return user
              }
          }

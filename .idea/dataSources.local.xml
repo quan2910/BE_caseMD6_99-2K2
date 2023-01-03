@@ -2,6 +2,10 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="WS-222.4345.14">
     <data-source name="@localhost" uuid="bbf31d84-3a9f-4758-a9a0-343ce4ea4a2a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="@localhost [2]" uuid="b676dcfd-a034-4bc5-ace5-ad31d77978f8">
       <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>

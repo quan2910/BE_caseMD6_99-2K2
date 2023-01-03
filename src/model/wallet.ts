@@ -15,5 +15,5 @@ export class Wallet {
     @Column({type:'int',default: 3})
     public moneyTypeId:number;
     @Column({type:'int'})
-    public userId:number
+    public userId:number;
 }
