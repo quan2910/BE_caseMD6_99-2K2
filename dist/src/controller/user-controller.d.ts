@@ -10,6 +10,7 @@ declare class UserController {
     updateProfile: (req: Request, res: Response) => Promise<void>;
     searchById: (req: Request, res: Response) => Promise<void>;
     saveAvatar: (req: Request, res: Response) => Promise<void>;
+    changePassword: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: UserController;
 export default _default;

@@ -6,6 +6,7 @@ class TransactionController {
     constructor() {
         this.saveTransaction = async (req, res) => {
             let transaction = req.body;
+            console.log(transaction);
             await this.transactionService.createTransaction(transaction);
             res.json({
                 mess: "thành công"
