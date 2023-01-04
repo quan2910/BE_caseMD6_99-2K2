@@ -77,11 +77,16 @@ class UserController {
             res.json({ mess: "thành công" });
         };
         this.searchById = async (req, res) => {
-            let idUser = req.params.id;
-            let user = await this.userService.findUserById(idUser);
-            let a = { authenticUser: [] };
-            a.authenticUser.push(user);
-            res.json({ user: a });
+            try {
+                let idUser = req.params.id;
+                let user = await this.userService.findUserById(idUser);
+                let a = { authenticUser: [] };
+                a.authenticUser.push(user);
+                res.json({ user: a });
+            }
+            catch (e) {
+                console.log(e.message);
+            }
         };
         this.saveAvatar = async (req, res) => {
             let { idUser } = req.body;
@@ -91,6 +96,21 @@ class UserController {
                 image.mv('./public/upload/' + image.name);
                 let nameImage = 'http://localhost:3000/upload/' + image.name;
                 await this.userService.updateUser({ avatar: nameImage }, idUser);
+            }
+        };
+        this.changePassword = async (req, res) => {
+            let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
+            if (!user.check) {
+                res.json({
+                    user,
+                    mess: "Mat khau hien tai khong dung"
+                });
+            }
+            else {
+                res.json({
+                    user,
+                    mess: "Doi mat khau thanh cong"
+                });
             }
         };
         this.userService = new user_service_1.UserService();

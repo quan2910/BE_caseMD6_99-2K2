@@ -14,4 +14,8 @@ export declare class UserService {
     checkLoginFb: (userFb: any) => Promise<any>;
     updateUser: (editUser: any, idUser: any) => Promise<void>;
     findUserById: (idUser: any) => Promise<any>;
+    checkChangePassword: (idUser: any, oldPassword: any, newPassword: any) => Promise<{
+        check: boolean;
+        userFind: string;
+    }>;
 }

@@ -25,7 +25,7 @@ export class WalletService {
         })
     }
 
-    edit = async (req:Request,res:Response) => {
+    edit = async (req:Request,res : Response) => {
         let idWallet = +req.params.idWallet;
         let newWallet = req.body;
         let wallets = await this.walletRepository.update({idWallet:idWallet},newWallet)
@@ -49,6 +49,22 @@ export class WalletService {
             return walletHome
 
     }
+    findTransactionByTime = async (idUser,year,month)=>{
+        let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
+        let transactions
+        if(month){
+             transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month}`)
+        }else {
+           transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+
+        }
+        let walletHome = {
+            wallet : wallets,
+            transactions :transactions
+        }
+        return walletHome
+    }
+
 }
 
 export default new WalletService();

@@ -8,6 +8,7 @@ export class TransactionController{
     }
     saveTransaction = async (req:Request,res:Response)=>{
         let transaction = req.body
+        console.log(transaction)
         await this.transactionService.createTransaction(transaction)
         res.json({
             mess:"thành công"

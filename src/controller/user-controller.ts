@@ -3,6 +3,7 @@ import {UserService} from "../service/user-service";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {UploadedFile} from "express-fileupload";
+
 class UserController {
     private userService: UserService
 
@@ -13,9 +14,6 @@ class UserController {
            let users = await this.userService.getAll()
            return res.status(200).json(users)
     }
-
-
-
 
     login = async (req:Request,res:Response)=>{
         try {
@@ -88,11 +86,16 @@ class UserController {
       res.json({mess:"thành công"})
   }
   searchById = async (req:Request,res:Response)=>{
-      let idUser = req.params.id
-      let user =await this.userService.findUserById(idUser)
-      let a = {authenticUser: []}
-      a.authenticUser.push(user)
-      res.json({user:a})
+     try{
+         let idUser = req.params.id
+         let user =await this.userService.findUserById(idUser)
+         let a = {authenticUser: []}
+         a.authenticUser.push(user)
+         res.json({user:a})
+     }catch (e) {
+         console.log(e.message)
+     }
+
   }
   saveAvatar  = async (req:Request,res:Response)=>{
       let {idUser}=req.body
@@ -104,7 +107,19 @@ class UserController {
           await this.userService.updateUser({avatar:nameImage},idUser)
       }
   }
-
-
+    changePassword = async (req: Request, res: Response) => {
+        let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword)
+        if(!user.check) {
+            res.json({
+                user,
+                mess: "Mat khau hien tai khong dung"
+            })
+        } else {
+            res.json({
+                user,
+                mess: "Doi mat khau thanh cong"
+            })
+        }
+    }
 }
 export default new UserController()
