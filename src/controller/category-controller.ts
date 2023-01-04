@@ -32,8 +32,17 @@ export class CategoryController {
         try {
             let categoryEdit = req.body
             console.log(categoryEdit)
-            let category= await this.categoryService.upDateCategory(categoryEdit.idCategory, categoryEdit)
+            let category = await this.categoryService.upDateCategory(categoryEdit.idCategory, categoryEdit)
             res.json(category)
+        } catch (e) {
+            res.json(e.message)
+        }
+    }
+
+    removeCategory = async (req: Request, res: Response) => {
+        try {
+            let category = await this.categoryService.deleteCategory(req, res);
+            return res.json({mess:"delete success", category: category})
         } catch (e) {
             res.json(e.message)
         }

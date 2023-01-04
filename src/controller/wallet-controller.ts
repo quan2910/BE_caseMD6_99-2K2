@@ -41,7 +41,6 @@ class WalletController {
                 }
             )
         }
-
     }
 
     editWallet = async (req: Request, res: Response) => {

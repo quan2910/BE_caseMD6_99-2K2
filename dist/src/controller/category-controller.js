@@ -36,6 +36,15 @@ class CategoryController {
                 res.json(e.message);
             }
         };
+        this.removeCategory = async (req, res) => {
+            try {
+                let category = await this.categoryService.deleteCategory(req, res);
+                return res.json({ mess: "delete success", category: category });
+            }
+            catch (e) {
+                res.json(e.message);
+            }
+        };
         this.categoryService = new category_service_1.CategoryService();
     }
 }

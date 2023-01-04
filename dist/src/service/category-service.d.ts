@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 export declare class CategoryService {
     categoryRepo: any;
     constructor();
@@ -5,4 +6,5 @@ export declare class CategoryService {
     getCategory: () => Promise<any>;
     findOneCategoryById: (idCategory: any) => Promise<any>;
     upDateCategory: (idCategory: any, editCategory: any) => Promise<void>;
+    deleteCategory: (req: Request, res: Response) => Promise<void>;
 }
