@@ -12,6 +12,17 @@ class CategoryService {
             let categories = await this.categoryRepo.find();
             return categories;
         };
+        this.findOneCategoryById = async (idCategory) => {
+            let category = await this.categoryRepo.findOneById(idCategory);
+            return category;
+        };
+        this.upDateCategory = async (idCategory, editCategory) => {
+            await this.categoryRepo.update({ idCategory: idCategory }, editCategory);
+        };
+        this.deleteCategory = async (req, res) => {
+            let idCategory = req.params.idCategory;
+            await this.categoryRepo.delete(idCategory);
+        };
         this.categoryRepo = data_source_1.AppDataSource.getRepository(category_1.Category);
     }
 }

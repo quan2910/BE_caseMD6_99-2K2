@@ -1,3 +1,7 @@
+import { Request, Response } from "express";
 export declare class MoneyTypeService {
-    moneyTypeRepo: any;
+    moneyTypeRepository: any;
+    constructor();
+    addMoneyType: (req: Request, res: Response) => Promise<any>;
+    findAllMoneyType: () => Promise<any>;
 }
