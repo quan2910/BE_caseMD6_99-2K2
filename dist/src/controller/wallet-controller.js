@@ -62,6 +62,18 @@ class WalletController {
                 res.json(e.message);
             }
         };
+        this.showTransactionByMonth = async (req, res) => {
+            try {
+                let idUser = req.params.id;
+                let { month } = req.query;
+                let { year } = req.query;
+                let walletHome = await wallet_service_1.default.findTransactionByTime(idUser, year, month);
+                res.json(walletHome);
+            }
+            catch (e) {
+                res.json(e.message);
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }

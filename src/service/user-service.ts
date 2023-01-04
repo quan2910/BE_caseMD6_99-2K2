@@ -3,6 +3,7 @@ import {User} from "../model/user"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import {SECRET} from "../middleware/auth";
+import {Request, Response} from "express";
 
 export class UserService {
     userRepository: any;
@@ -108,4 +109,28 @@ where username = '${user.username}'`
      let user =  await this.userRepository.findOneById(idUser)
         return user
     }
+    checkChangePassword = async (idUser, oldPassword, newPassword) => {
+        let user = {
+            check: false,
+            userFind: ''
+        }
+        let userFind = await this.userRepository.query(`select * from users where idUser = ${idUser}`);
+        if(userFind.length === 0) {
+            user.check = false;
+        } else {
+            let compare = await bcrypt.compare(oldPassword, userFind[0].password)
+            if(!compare) {
+                user.userFind = userFind
+                user.check = false;
+            }
+            if(compare) {
+                newPassword = await bcrypt.hash(newPassword, 10)
+                await this.userRepository.query(`UPDATE users SET password = '${newPassword}' where idUser = '${idUser}'`)
+                user.check = true
+                user.userFind = userFind
+            }
+        }
+        return user
+    }
 }
+

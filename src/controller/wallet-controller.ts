@@ -41,7 +41,6 @@ class WalletController {
                 }
             )
         }
-
     }
 
     editWallet = async (req: Request, res: Response) => {
@@ -60,7 +59,6 @@ class WalletController {
 
     }
     showWalletDetail = async (req:Request,res:Response)=>{
-
         try{
             let idUser = req.params.id
             let walletHome =  await walletService.getWalletDetail(idUser)
@@ -69,6 +67,17 @@ class WalletController {
             res.json(e.message)
         }
     }
-}
+    showTransactionByMonth =async (req:Request,res:Response)=>{
 
-export default new WalletController();
+        try{
+            let idUser = req.params.id
+            let {month} = req.query
+            let {year} =req.query
+           let walletHome=  await WalletService.findTransactionByTime(idUser,year,month)
+            res.json(walletHome)
+        }catch (e) {
+            res.json(e.message)
+        }
+    }
+}
+export default new WalletController()

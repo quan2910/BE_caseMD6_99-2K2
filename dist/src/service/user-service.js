@@ -101,6 +101,30 @@ where username = '${user.username}'`;
             let user = await this.userRepository.findOneById(idUser);
             return user;
         };
+        this.checkChangePassword = async (idUser, oldPassword, newPassword) => {
+            let user = {
+                check: false,
+                userFind: ''
+            };
+            let userFind = await this.userRepository.query(`select * from users where idUser = ${idUser}`);
+            if (userFind.length === 0) {
+                user.check = false;
+            }
+            else {
+                let compare = await bcrypt_1.default.compare(oldPassword, userFind[0].password);
+                if (!compare) {
+                    user.userFind = userFind;
+                    user.check = false;
+                }
+                if (compare) {
+                    newPassword = await bcrypt_1.default.hash(newPassword, 10);
+                    await this.userRepository.query(`UPDATE users SET password = '${newPassword}' where idUser = '${idUser}'`);
+                    user.check = true;
+                    user.userFind = userFind;
+                }
+            }
+            return user;
+        };
         data_source_1.AppDataSource.initialize().then(connection => {
             console.log('Connected Database');
             this.userRepository = connection.getRepository(user_1.User);
