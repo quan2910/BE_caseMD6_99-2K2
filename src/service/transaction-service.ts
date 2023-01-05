@@ -13,4 +13,7 @@ export class TransactionService{
         let transactions = this.transactionRepo.find()
         return transactions
     }
+    deleteTransaction =async (idTransaction)=>{
+        this.transactionRepo.delete(idTransaction)
+    }
 }
