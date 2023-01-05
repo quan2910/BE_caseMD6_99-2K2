@@ -60,6 +60,17 @@ export class WalletService {
         }
         return walletHome
     }
+    findTransactionByDate = async (idUser,fromDate,toDate)=>{
+        console.log(fromDate,toDate)
+        let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
+        let   transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And time >='${fromDate}' AND time <='${toDate}'`)
+        let walletHome = {
+            wallet : wallets,
+            transactions :transactions
+        }
+
+        return walletHome
+    }
 
 }
 
