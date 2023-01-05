@@ -20,9 +20,6 @@ export class WalletService {
     delete = async (req: Request, res: Response) => {
         let idWallet = req.params.idWallet;
         await this.walletRepository.delete(idWallet);
-        res.status(201).json({
-            mess: 'Delete Success !!'
-        })
     }
 
     edit = async (req:Request,res : Response) => {
@@ -38,7 +35,6 @@ export class WalletService {
         return wallets
     }
     getWalletDetail = async (idUser)=>{
-
 
             let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
             let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)

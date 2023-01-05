@@ -15,9 +15,6 @@ class WalletService {
         this.delete = async (req, res) => {
             let idWallet = req.params.idWallet;
             await this.walletRepository.delete(idWallet);
-            res.status(201).json({
-                mess: 'Delete Success !!'
-            });
         };
         this.edit = async (req, res) => {
             let idWallet = +req.params.idWallet;
