@@ -12,6 +12,9 @@ class TransactionService {
             let transactions = this.transactionRepo.find();
             return transactions;
         };
+        this.deleteTransaction = async (idTransaction) => {
+            this.transactionRepo.delete(idTransaction);
+        };
         this.transactionRepo = data_source_1.AppDataSource.getRepository(transaction_1.Transaction);
     }
 }

@@ -23,6 +23,16 @@ export class TransactionController{
 
         }
     }
+    deleteTransaction =async (req:Request,res:Response)=>{
+        try {
+            let idTransaction = req.params.id
+            await this.transactionService.deleteTransaction(idTransaction)
+             res.json({mess:"thành công"})
+        }catch (e) {
+            res.json({mess:"haha"})
+        }
+    }
+
 }
 
 export default new TransactionController()
