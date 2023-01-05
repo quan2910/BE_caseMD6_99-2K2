@@ -20,6 +20,16 @@ class TransactionController {
             catch (e) {
             }
         };
+        this.deleteTransaction = async (req, res) => {
+            try {
+                let idTransaction = req.params.id;
+                await this.transactionService.deleteTransaction(idTransaction);
+                res.json({ mess: "thành công" });
+            }
+            catch (e) {
+                res.json({ mess: "haha" });
+            }
+        };
         this.transactionService = new transaction_service_1.TransactionService();
     }
 }

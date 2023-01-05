@@ -5,6 +5,7 @@ export declare class TransactionController {
     constructor();
     saveTransaction: (req: Request, res: Response) => Promise<void>;
     showTransactions: (req: Request, res: Response) => Promise<void>;
+    deleteTransaction: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: TransactionController;
 export default _default;
