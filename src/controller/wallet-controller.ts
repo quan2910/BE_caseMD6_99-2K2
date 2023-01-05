@@ -79,5 +79,17 @@ class WalletController {
             res.json(e.message)
         }
     }
+    showTransactionByDate =async (req:Request,res:Response)=>{
+
+        try{
+            let idUser = req.params.id
+            let {fromDate} = req.query
+            let {toDate} =req.query
+            let walletHome=  await WalletService.findTransactionByDate(idUser,fromDate,toDate)
+            res.json(walletHome)
+        }catch (e) {
+            res.json(e.message)
+        }
+    }
 }
 export default new WalletController()

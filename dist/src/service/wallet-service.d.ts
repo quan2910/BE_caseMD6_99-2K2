@@ -15,6 +15,10 @@ export declare class WalletService {
         wallet: any;
         transactions: any;
     }>;
+    findTransactionByDate: (idUser: any, fromDate: any, toDate: any) => Promise<{
+        wallet: any;
+        transactions: any;
+    }>;
 }
 declare const _default: WalletService;
 export default _default;

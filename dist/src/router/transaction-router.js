@@ -10,4 +10,5 @@ exports.router = (0, express_1.Router)();
 exports.transactionRouter = (0, express_1.Router)();
 exports.transactionRouter.get("/", transaction_controller_1.default.showTransactions);
 exports.transactionRouter.post('/', transaction_controller_1.default.saveTransaction);
+exports.transactionRouter.delete('/delete-transaction/:id', transaction_controller_1.default.deleteTransaction);
 //# sourceMappingURL=transaction-router.js.map

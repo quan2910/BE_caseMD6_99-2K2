@@ -14,4 +14,5 @@ walletRouter.delete('/:idWallet',walletController.removeWallet)
 walletRouter.put('/:idWallet',walletController.editWallet);
 walletRouter.get("/detail-wallet/:id",walletController.showWalletDetail)
 walletRouter.get("/transaction-by-month/:id",walletController.showTransactionByMonth)
-walletRouter.get("/transaction-by-month/:id",walletController.showTransactionByMonth)
+walletRouter.get("/transaction-by-date/:id",walletController.showTransactionByDate)
+
