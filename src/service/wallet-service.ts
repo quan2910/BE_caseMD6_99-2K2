@@ -10,7 +10,7 @@ export class WalletService {
     }
 
     findAll = async () => {
-        let wallets = await this.walletRepository.find()
+        let wallets = await this.walletRepository.query(`select * from wallet join money_type on moneyTypeId = idMoneyType`)
         return wallets
     }
     create = async (wallet) => {
