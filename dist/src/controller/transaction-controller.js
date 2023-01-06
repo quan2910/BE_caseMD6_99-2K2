@@ -30,6 +30,12 @@ class TransactionController {
                 res.json({ mess: "haha" });
             }
         };
+        this.updateTransaction = async (req, res) => {
+            let transactionEdit = req.body;
+            console.log(transactionEdit);
+            await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction);
+            res.json({ mess: "thành công" });
+        };
         this.transactionService = new transaction_service_1.TransactionService();
     }
 }
