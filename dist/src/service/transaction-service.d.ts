@@ -4,4 +4,5 @@ export declare class TransactionService {
     createTransaction: (transaction: any) => Promise<void>;
     getTransactions: () => Promise<any>;
     deleteTransaction: (idTransaction: any) => Promise<void>;
+    updateTransactions: (editTransactions: any, idTransactions: any) => Promise<void>;
 }
