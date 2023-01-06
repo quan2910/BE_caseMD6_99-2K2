@@ -86,6 +86,28 @@ class WalletController {
                 res.json(e.message);
             }
         };
+        this.showTransactionByOnlyMonth = async (req, res) => {
+            try {
+                let arrMonth = [];
+                let idUser = req.params.id;
+                let month1 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2023, 1);
+                let month12 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2022, 12);
+                let month11 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2022, 11);
+                let month10 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2022, 10);
+                let month9 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2022, 9);
+                let month8 = await wallet_service_1.default.findTransactionByOnlyMonth(idUser, 2022, 8);
+                arrMonth.push(month8);
+                arrMonth.push(month9);
+                arrMonth.push(month10);
+                arrMonth.push(month11);
+                arrMonth.push(month12);
+                arrMonth.push(month1);
+                res.json(arrMonth);
+            }
+            catch (e) {
+                res.json("lỗi rồi");
+            }
+        };
         this.userService = new user_service_1.UserService();
     }
 }
