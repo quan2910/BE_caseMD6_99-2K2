@@ -15,6 +15,9 @@ class TransactionService {
         this.deleteTransaction = async (idTransaction) => {
             this.transactionRepo.delete(idTransaction);
         };
+        this.updateTransactions = async (editTransactions, idTransactions) => {
+            await this.transactionRepo.update({ idTransaction: idTransactions }, editTransactions);
+        };
         this.transactionRepo = data_source_1.AppDataSource.getRepository(transaction_1.Transaction);
     }
 }
