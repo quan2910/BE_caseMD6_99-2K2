@@ -1,9 +1,9 @@
-import {CategoryService} from "../service/category-service";
+
 import {Request, Response} from "express";
-import {MoneyTypeService} from "../service/moneyType-service";
+import {MoneyTypeService} from "../service/moneyType-Service";
 
 export class MoneyTypeController{
-    moneyTypeService : MoneyTypeService
+   moneyTypeService:MoneyTypeService
     constructor() {
         this.moneyTypeService = new MoneyTypeService()
     }
@@ -13,10 +13,11 @@ export class MoneyTypeController{
             let moneyTypes = await this.moneyTypeService.getAll()
             res.json(moneyTypes)
 
+
         }catch (e) {
             res.json(e.message)
         }
     }
 
 }
-export default new MoneyTypeController()
+export default new MoneyTypeController();

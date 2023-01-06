@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MoneyTypeController = void 0;
-const moneyType_service_1 = require("../service/moneyType-service");
+const moneyType_Service_1 = require("../service/moneyType-Service");
 class MoneyTypeController {
     constructor() {
         this.showAll = async (req, res) => {
@@ -13,7 +13,7 @@ class MoneyTypeController {
                 res.json(e.message);
             }
         };
-        this.moneyTypeService = new moneyType_service_1.MoneyTypeService();
+        this.moneyTypeService = new moneyType_Service_1.MoneyTypeService();
     }
 }
 exports.MoneyTypeController = MoneyTypeController;

@@ -7,3 +7,4 @@ export const transactionRouter = Router();
 transactionRouter.get("/",transactionController.showTransactions)
 transactionRouter.post('/',transactionController.saveTransaction)
 transactionRouter.delete('/delete-transaction/:id',transactionController.deleteTransaction)
+transactionRouter.put('/edit-transactions',transactionController.updateTransaction)

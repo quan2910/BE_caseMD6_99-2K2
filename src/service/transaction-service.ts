@@ -16,4 +16,7 @@ export class TransactionService{
     deleteTransaction =async (idTransaction)=>{
         this.transactionRepo.delete(idTransaction)
     }
+    updateTransactions = async (editTransactions, idTransactions) => {
+        await this.transactionRepo.update({idTransaction: idTransactions}, editTransactions)
+    }
 }

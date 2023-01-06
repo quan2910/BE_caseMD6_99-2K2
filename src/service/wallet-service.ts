@@ -10,7 +10,7 @@ export class WalletService {
     }
 
     findAll = async () => {
-        let wallets = await this.walletRepository.find()
+        let wallets = await this.walletRepository.query(`select * from wallet join money_type on moneyTypeId = idMoneyType`)
         return wallets
     }
     create = async (wallet) => {
@@ -70,6 +70,18 @@ export class WalletService {
         }
 
         return walletHome
+    }
+    findTransactionByOnlyMonth = async (idUser,year,month)=>{
+        let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
+        let transactions
+        if(month){
+            transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month}`)
+        }else {
+            transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+
+        }
+
+        return transactions
     }
 
 }

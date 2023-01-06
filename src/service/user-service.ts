@@ -16,61 +16,57 @@ export class UserService {
         this.userRepository = AppDataSource.getRepository(User);
     }
 
-   getAll =async ()=>{
+    getAll = async () => {
         let users = await this.userRepository.find()
-       return users
-   }
-   save = async (user) => {
-       console.log(user);
+        return users
+    }
+    save = async (user) => {
+        console.log(user);
         let query = `select * from users 
 where username = '${user.username}'`
-       let userFind = await this.userRepository.query(query);
+        let userFind = await this.userRepository.query(query);
 
 
-        if (userFind.length != 0 ){
+        if (userFind.length != 0) {
             return {
                 mess: 'has the same name'
             }
-        }else {
-            user.password = await bcrypt.hash(user.password,10)
+        } else {
+            user.password = await bcrypt.hash(user.password, 10)
             return await this.userRepository.save(user)
         }
-   }
+    }
 
-   checkLogin = async (userLogin)=>{
+    checkLogin = async (userLogin) => {
         let user = {
-            check :false,
-            token : "",
-            authenticUser :false,
-            username: '',
-            userId: 0
+            check: false,
+            token: "",
+            authenticUser: false
         }
-        let userFind =await this.userRepository.query(`select * from users where username = "${userLogin.username}"`)
-         if(userFind.length==0){
-             user.check=false
-             return user
-         }else{
-           let compare = await  bcrypt.compare(userLogin.password,userFind[0].password)
-             if (!compare) {
-                 user.check = false;
-                 return user
-             }
-             if (compare) {
-                 let payload = {username: userFind[0].username}
-                 let token = await jwt.sign(payload, SECRET, {
-                     expiresIn: 36000
-                 })
-                 user.token = token;
-                 user.check = true;
-                 user.authenticUser = userFind;
-                 user.username = userFind[0].username;
-                 user.userId = userFind[0].userId;
-                 return user
-             }
-         }
+        let userFind = await this.userRepository.query(`select * from users where username = "${userLogin.username}"`)
+        if (userFind.length == 0) {
+            user.check = false
+            return user
+        } else {
+            let compare = await bcrypt.compare(userLogin.password, userFind[0].password)
+            if (!compare) {
+                user.check = false;
+                return user
+            }
+            if (compare) {
+                let payload = {username: userFind[0].username}
+                let token = await jwt.sign(payload, SECRET, {
+                    expiresIn: 36000
+                })
+                user.token = token;
+                user.check = true;
+                user.authenticUser = userFind
+                return user
+            }
+        }
 
 
-   }
+    }
 
     checkRegister = async (userRegister) => {
         let userFind = await this.userRepository.query(`select * from users where username = '${userRegister.username}'`);
@@ -85,13 +81,13 @@ where username = '${user.username}'`
     }
 
     createUser = async (user) => {
-      let newUser =  await this.userRepository.save(user);
+        let newUser = await this.userRepository.save(user);
         return newUser
     }
-    updateCheckBegin = async (idUser)=>{
-          this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`)
+    updateCheckBegin = async (idUser) => {
+        this.userRepository.query(`update users set checkBegin = true where idUser =${idUser}`)
     }
-    checkLoginFb = async (userFb)=>{
+    checkLoginFb = async (userFb) => {
         let userFind = await this.userRepository.query(`select * from users where username = '${userFb.username}'`);
         let check;
         if (userFind.length !== 0) {
@@ -102,11 +98,11 @@ where username = '${user.username}'`
         }
         return check
     }
-    updateUser =async (editUser,idUser)=>{
-        await this.userRepository.update({idUser:idUser},editUser)
+    updateUser = async (editUser, idUser) => {
+        await this.userRepository.update({idUser: idUser}, editUser)
     }
-    findUserById = async (idUser)=>{
-     let user =  await this.userRepository.findOneById(idUser)
+    findUserById = async (idUser) => {
+        let user = await this.userRepository.findOneById(idUser)
         return user
     }
     checkChangePassword = async (idUser, oldPassword, newPassword) => {
@@ -115,15 +111,15 @@ where username = '${user.username}'`
             userFind: ''
         }
         let userFind = await this.userRepository.query(`select * from users where idUser = ${idUser}`);
-        if(userFind.length === 0) {
+        if (userFind.length === 0) {
             user.check = false;
         } else {
             let compare = await bcrypt.compare(oldPassword, userFind[0].password)
-            if(!compare) {
+            if (!compare) {
                 user.userFind = userFind
                 user.check = false;
             }
-            if(compare) {
+            if (compare) {
                 newPassword = await bcrypt.hash(newPassword, 10)
                 await this.userRepository.query(`UPDATE users SET password = '${newPassword}' where idUser = '${idUser}'`)
                 user.check = true

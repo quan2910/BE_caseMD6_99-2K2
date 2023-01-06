@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { MoneyTypeService } from "../service/moneyType-service";
+import { MoneyTypeService } from "../service/moneyType-Service";
 export declare class MoneyTypeController {
     moneyTypeService: MoneyTypeService;
     constructor();

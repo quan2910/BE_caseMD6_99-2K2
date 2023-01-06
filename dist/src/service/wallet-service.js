@@ -6,7 +6,7 @@ const wallet_1 = require("../model/wallet");
 class WalletService {
     constructor() {
         this.findAll = async () => {
-            let wallets = await this.walletRepository.find();
+            let wallets = await this.walletRepository.query(`select * from wallet join money_type on moneyTypeId = idMoneyType`);
             return wallets;
         };
         this.create = async (wallet) => {
@@ -60,6 +60,17 @@ class WalletService {
                 transactions: transactions
             };
             return walletHome;
+        };
+        this.findTransactionByOnlyMonth = async (idUser, year, month) => {
+            let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`);
+            let transactions;
+            if (month) {
+                transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month}`);
+            }
+            else {
+                transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`);
+            }
+            return transactions;
         };
         this.walletRepository = data_source_1.AppDataSource.getRepository(wallet_1.Wallet);
     }

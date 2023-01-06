@@ -19,6 +19,7 @@ export declare class WalletService {
         wallet: any;
         transactions: any;
     }>;
+    findTransactionByOnlyMonth: (idUser: any, year: any, month: any) => Promise<any>;
 }
 declare const _default: WalletService;
 export default _default;
