@@ -34,9 +34,7 @@ where username = '${user.username}'`;
             let user = {
                 check: false,
                 token: "",
-                authenticUser: false,
-                username: '',
-                userId: 0
+                authenticUser: false
             };
             let userFind = await this.userRepository.query(`select * from users where username = "${userLogin.username}"`);
             if (userFind.length == 0) {
@@ -57,8 +55,6 @@ where username = '${user.username}'`;
                     user.token = token;
                     user.check = true;
                     user.authenticUser = userFind;
-                    user.username = userFind[0].username;
-                    user.userId = userFind[0].userId;
                     return user;
                 }
             }
