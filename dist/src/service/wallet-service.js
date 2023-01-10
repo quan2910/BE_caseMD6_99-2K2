@@ -7,7 +7,7 @@ const transaction_1 = require("../model/transaction");
 class WalletService {
     constructor() {
         this.findAll = async () => {
-            let wallets = await this.walletRepository.find();
+            let wallets = await this.walletRepository.query(`select * from wallet join money_type on moneyTypeId = idMoneyType`);
             return wallets;
         };
         this.create = async (wallet) => {
