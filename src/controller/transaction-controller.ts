@@ -32,6 +32,12 @@ export class TransactionController{
             res.json({mess:"haha"})
         }
     }
+    updateTransaction = async (req: Request, res: Response) => {
+        let transactionEdit = req.body
+        console.log(transactionEdit)
+        await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction)
+        res.json({mess: "thành công"})
+    }
 
 }
 

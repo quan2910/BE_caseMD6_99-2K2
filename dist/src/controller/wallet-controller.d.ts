@@ -10,6 +10,7 @@ declare class WalletController {
     showWalletDetail: (req: Request, res: Response) => Promise<void>;
     showTransactionByMonth: (req: Request, res: Response) => Promise<void>;
     showTransactionByDate: (req: Request, res: Response) => Promise<void>;
+    showTransactionByOnlyMonth: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: WalletController;
 export default _default;
