@@ -31,11 +31,9 @@ class WalletService {
             }
             if (currentWallet.moneyTypeId == 1 && newWallet.moneyTypeId == 2) {
                 for (let transaction of transactions) {
-                    console.log(transaction);
                     let totalSpent = transaction.totalSpent / 23000;
                     await this.transactionRepository.update({ idTransaction: transaction.idTransaction }, { totalSpent: totalSpent });
                 }
-                console.log(2);
                 return wallets;
             }
             if (currentWallet.moneyTypeId == 2 && newWallet.moneyTypeId == 1) {
