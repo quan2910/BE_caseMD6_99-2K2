@@ -16,4 +16,3 @@ walletRouter.get("/detail-wallet/:id",walletController.showWalletDetail)
 walletRouter.get("/transaction-by-month/:id",walletController.showTransactionByMonth)
 walletRouter.get("/transaction-by-date/:id",walletController.showTransactionByDate)
 walletRouter.get("/transaction-by-only-month/:id",walletController.showTransactionByOnlyMonth)
-
