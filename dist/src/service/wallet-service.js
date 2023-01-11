@@ -4,6 +4,7 @@ exports.WalletService = void 0;
 const data_source_1 = require("../data-source");
 const wallet_1 = require("../model/wallet");
 const transaction_1 = require("../model/transaction");
+const loan_debt_1 = require("../model/loan-debt");
 class WalletService {
     constructor() {
         this.findAll = async () => {
@@ -26,6 +27,8 @@ class WalletService {
             let currentWallet = await this.walletRepository.findOneById(idWallet);
             let wallets = await this.walletRepository.update({ idWallet: idWallet }, newWallet);
             let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${idWallet}`);
+            let loanDebtDetails = await this.loanDebtRepo.query(`select * from loan_debt join category_loan_debt on loan_debt.idCategoryLoanDebt = category_loan_debt.idCategoryLoanDebt  where idWallet = ${+idWallet}`);
+            console.log(loanDebtDetails);
             if (currentWallet.moneyTypeId == newWallet.moneyTypeId) {
                 return wallets;
             }
@@ -34,12 +37,21 @@ class WalletService {
                     let totalSpent = transaction.totalSpent / 23000;
                     await this.transactionRepository.update({ idTransaction: transaction.idTransaction }, { totalSpent: totalSpent });
                 }
+                for (let loanDebtDetail of loanDebtDetails) {
+                    let totalSpent2 = loanDebtDetail.moneyLoanDebt / 23000;
+                    console.log(totalSpent2);
+                    await this.loanDebtRepo.update({ idLoanDebt: loanDebtDetail.idLoanDebt }, { moneyLoanDebt: totalSpent2 });
+                }
                 return wallets;
             }
             if (currentWallet.moneyTypeId == 2 && newWallet.moneyTypeId == 1) {
                 for (let transaction of transactions) {
                     let totalSpent = transaction.totalSpent * 23000;
                     await this.transactionRepository.update({ idTransaction: transaction.idTransaction }, { totalSpent: totalSpent });
+                }
+                for (let loanDebtDetail of loanDebtDetails) {
+                    let totalSpent2 = loanDebtDetail.moneyLoanDebt * 23000;
+                    await this.loanDebtRepo.update({ idLoanDebt: loanDebtDetail.idLoanDebt }, { moneyLoanDebt: totalSpent2 });
                 }
                 return wallets;
             }
@@ -97,6 +109,7 @@ class WalletService {
         };
         this.walletRepository = data_source_1.AppDataSource.getRepository(wallet_1.Wallet);
         this.transactionRepository = data_source_1.AppDataSource.getRepository(transaction_1.Transaction);
+        this.loanDebtRepo = data_source_1.AppDataSource.getRepository(loan_debt_1.LoanDebt);
     }
 }
 exports.WalletService = WalletService;

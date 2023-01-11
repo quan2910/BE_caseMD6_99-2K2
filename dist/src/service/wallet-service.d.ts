@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 export declare class WalletService {
     private walletRepository;
     transactionRepository: any;
+    loanDebtRepo: any;
     constructor();
     findAll: () => Promise<any>;
     create: (wallet: any) => Promise<any>;

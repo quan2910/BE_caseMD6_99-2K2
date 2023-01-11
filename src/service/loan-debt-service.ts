@@ -18,6 +18,7 @@ export class LoanDebtService {
 
     getLoanDebtDetail = async (idWallet)=>{
         let loanDebtDetail =await this.loanDebtRepo.query(`select * from loan_debt join category_loan_debt on loan_debt.idCategoryLoanDebt = category_loan_debt.idCategoryLoanDebt  where idWallet = ${+idWallet}`)
+
         return loanDebtDetail
     }
     updateLoanDebt = async (idLoanDebt ,updateLoanDebt)=> {
