@@ -20,7 +20,7 @@ class LimitService {
             });
         };
         this.edit = async (req, res) => {
-            let idLimit = +req.params.idLimit;
+            let idLimit = +req.body.idLimit;
             let newLimit = req.body;
             let limits = await this.limitRepository.update({ idLimit: idLimit }, newLimit);
             return limits;
