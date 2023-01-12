@@ -8,8 +8,12 @@ class MoneyTypeController {
     }
 
     addMoneyType = async (req: Request, res: Response) => {
-        let moneyType = await this.moneyTypeService.addMoneyType(req,res);
-        return res.status(200).json(moneyType)
+        try{
+            let moneyType = await this.moneyTypeService.addMoneyType(req,res);
+            return res.status(200).json(moneyType)
+        }catch (e){
+            console.log(e)
+        }
     }
 
     getAllMoneyType = async (req: Request, res: Response) => {

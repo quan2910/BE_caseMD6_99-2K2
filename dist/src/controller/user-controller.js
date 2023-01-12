@@ -89,28 +89,38 @@ class UserController {
             }
         };
         this.saveAvatar = async (req, res) => {
-            let { idUser } = req.body;
-            let file = req.files;
-            if (file) {
-                let image = file.File;
-                image.mv('./public/upload/' + image.name);
-                let nameImage = 'http://localhost:3000/upload/' + image.name;
-                await this.userService.updateUser({ avatar: nameImage }, idUser);
+            try {
+                let { idUser } = req.body;
+                let file = req.files;
+                if (file) {
+                    let image = file.File;
+                    image.mv('./public/upload/' + image.name);
+                    let nameImage = 'http://localhost:3000/upload/' + image.name;
+                    await this.userService.updateUser({ avatar: nameImage }, idUser);
+                }
+            }
+            catch (e) {
+                console.log(e);
             }
         };
         this.changePassword = async (req, res) => {
-            let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
-            if (!user.check) {
-                res.json({
-                    user,
-                    mess: "Mat khau hien tai khong dung"
-                });
+            try {
+                let user = await this.userService.checkChangePassword(req.params.id, req.body.oldPassword, req.body.newPassword);
+                if (!user.check) {
+                    res.json({
+                        user,
+                        mess: "Mat khau hien tai khong dung"
+                    });
+                }
+                else {
+                    res.json({
+                        user,
+                        mess: "Doi mat khau thanh cong"
+                    });
+                }
             }
-            else {
-                res.json({
-                    user,
-                    mess: "Doi mat khau thanh cong"
-                });
+            catch (e) {
+                console.log(e);
             }
         };
         this.userService = new user_service_1.UserService();

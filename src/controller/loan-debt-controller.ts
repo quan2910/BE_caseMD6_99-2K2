@@ -19,28 +19,39 @@ class LoanDebtController {
         return res.json(loanDebtDetail)
     }
     createLoanDebt = async (req: Request, res: Response)=> {
-        let loanDebt = req.body
-        await this.loanDebtService.create(loanDebt)
-        res.json({
-            mess:"create success",
-            data: loanDebt
-        })
+        try{
+            let loanDebt = req.body
+            await this.loanDebtService.create(loanDebt)
+            res.json({
+                mess:"create success",
+                data: loanDebt
+            })
+        }catch (e) {
+            console.log(e)
+        }
     }
-
     updateLoanDebt = async (req: Request, res: Response)=> {
-        let loanDebtEdit = req.body;
-        await this.loanDebtService.updateLoanDebt( loanDebtEdit.idLoanDebt, loanDebtEdit)
-       res.status(200).json({
-           mess:"edit success"
-       })
+        try{
+            let loanDebtEdit = req.body;
+            await this.loanDebtService.updateLoanDebt( loanDebtEdit.idLoanDebt, loanDebtEdit)
+            res.status(200).json({
+                mess:"edit success"
+            })
+        }catch (e){
+            console.log(e)
+        }
     }
 
     deleteLoanDebt = async (req: Request, res: Response)=> {
-        let idLoanDebt = req.params.idLoanDebt;
-        await this.loanDebtService.deleteLoanDebt(idLoanDebt);
-        res.status(201).json({
-            mess: "delete success"
-        })
+        try{
+            let idLoanDebt = req.params.idLoanDebt;
+            await this.loanDebtService.deleteLoanDebt(idLoanDebt);
+            res.status(201).json({
+                mess: "delete success"
+            })
+        }catch (e){
+            console.log(e)
+        }
     }
 }
 export default new LoanDebtController()

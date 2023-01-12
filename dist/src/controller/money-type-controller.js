@@ -4,8 +4,13 @@ const money_type_service_1 = require("../service/money-type-service");
 class MoneyTypeController {
     constructor() {
         this.addMoneyType = async (req, res) => {
-            let moneyType = await this.moneyTypeService.addMoneyType(req, res);
-            return res.status(200).json(moneyType);
+            try {
+                let moneyType = await this.moneyTypeService.addMoneyType(req, res);
+                return res.status(200).json(moneyType);
+            }
+            catch (e) {
+                console.log(e);
+            }
         };
         this.getAllMoneyType = async (req, res) => {
             let moneyTypes = await this.moneyTypeService.findAllMoneyType();

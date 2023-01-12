@@ -33,12 +33,15 @@ export class TransactionController{
         }
     }
     updateTransaction = async (req: Request, res: Response) => {
-        let transactionEdit = req.body
-        console.log(transactionEdit)
-        await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction)
-        res.json({mess: "thành công"})
+        try{
+            let transactionEdit = req.body
+            console.log(transactionEdit)
+            await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction)
+            res.json({mess: "thành công"})
+        }catch (e){
+            console.log(e)
+        }
     }
-
 }
 
 export default new TransactionController()

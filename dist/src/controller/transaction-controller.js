@@ -31,10 +31,15 @@ class TransactionController {
             }
         };
         this.updateTransaction = async (req, res) => {
-            let transactionEdit = req.body;
-            console.log(transactionEdit);
-            await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction);
-            res.json({ mess: "thành công" });
+            try {
+                let transactionEdit = req.body;
+                console.log(transactionEdit);
+                await this.transactionService.updateTransactions(transactionEdit, transactionEdit.idTransaction);
+                res.json({ mess: "thành công" });
+            }
+            catch (e) {
+                console.log(e);
+            }
         };
         this.transactionService = new transaction_service_1.TransactionService();
     }
