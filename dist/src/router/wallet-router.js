@@ -15,4 +15,5 @@ exports.walletRouter.put('/:idWallet', wallet_controller_1.default.editWallet);
 exports.walletRouter.get("/detail-wallet/:id", wallet_controller_1.default.showWalletDetail);
 exports.walletRouter.get("/transaction-by-month/:id", wallet_controller_1.default.showTransactionByMonth);
 exports.walletRouter.get("/transaction-by-date/:id", wallet_controller_1.default.showTransactionByDate);
+exports.walletRouter.get("/transaction-by-only-month/:id", wallet_controller_1.default.showTransactionByOnlyMonth);
 //# sourceMappingURL=wallet-router.js.map

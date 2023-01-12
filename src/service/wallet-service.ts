@@ -1,12 +1,15 @@
 import {AppDataSource} from "../data-source";
 import {Wallet} from "../model/wallet";
 import {Request, Response} from "express";
+import {Transaction} from "../model/transaction";
 
 export class WalletService {
     private walletRepository: any;
+    transactionRepository:any
 
     constructor() {
         this.walletRepository = AppDataSource.getRepository(Wallet)
+        this.transactionRepository=AppDataSource.getRepository(Transaction)
     }
 
     findAll = async () => {
@@ -28,7 +31,26 @@ export class WalletService {
     edit = async (req:Request,res : Response) => {
         let idWallet = +req.params.idWallet;
         let newWallet = req.body;
+        let currentWallet =  await this.walletRepository.findOneById(idWallet)
         let wallets = await this.walletRepository.update({idWallet:idWallet},newWallet)
+        let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${idWallet}`)
+        if(currentWallet.moneyTypeId==newWallet.moneyTypeId){
+            return wallets
+        }
+        if(currentWallet.moneyTypeId==1 &&newWallet.moneyTypeId==2){
+            for (let transaction of transactions) {
+                  let totalSpent = transaction.totalSpent /23000
+                await this.transactionRepository.update({idTransaction:transaction.idTransaction},{totalSpent:totalSpent})
+            }
+            return wallets
+        }
+        if(currentWallet.moneyTypeId==2 &&newWallet.moneyTypeId==1){
+            for (let transaction of transactions) {
+                let totalSpent = transaction.totalSpent *23000
+                await this.transactionRepository.update({idTransaction:transaction.idTransaction},{totalSpent:totalSpent})
+            }
+            return wallets
+        }
         return wallets
     }
 
@@ -41,7 +63,7 @@ export class WalletService {
 
 
             let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
-            let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+            let transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} order by time DESC`)
             let walletHome = {
                 wallet : wallets,
                 transactions :transactions
@@ -53,9 +75,9 @@ export class WalletService {
         let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
         let transactions
         if(month){
-             transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month}`)
+             transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month} order by time DESC`)
         }else {
-           transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+           transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} order by time DESC`)
 
         }
         let walletHome = {
@@ -67,13 +89,25 @@ export class WalletService {
     findTransactionByDate = async (idUser,fromDate,toDate)=>{
         console.log(fromDate,toDate)
         let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
-        let   transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And time >='${fromDate}' AND time <='${toDate}'`)
+        let   transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And time >='${fromDate}' AND time <='${toDate}' order by time DESC`)
         let walletHome = {
             wallet : wallets,
             transactions :transactions
         }
 
         return walletHome
+    }
+    findTransactionByOnlyMonth = async (idUser,year,month)=>{
+        let wallets = await this.walletRepository.query(`select * from wallet where userId =${+idUser}  && status = 1`)
+        let transactions
+        if(month){
+            transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet} And YEAR(time) = ${year} AND MONTH(time)=${month}`)
+        }else {
+            transactions = await this.walletRepository.query(`select * from transaction join category on idCategory = categoryId where walletId =${+wallets[0].idWallet}`)
+
+        }
+
+        return transactions
     }
 
 }
