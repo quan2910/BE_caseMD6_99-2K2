@@ -5,12 +5,17 @@ const transaction_service_1 = require("../service/transaction-service");
 class TransactionController {
     constructor() {
         this.saveTransaction = async (req, res) => {
-            let transaction = req.body;
-            console.log(transaction);
-            await this.transactionService.createTransaction(transaction);
-            res.json({
-                mess: "thành công"
-            });
+            try {
+                let transaction = req.body;
+                console.log(transaction);
+                await this.transactionService.createTransaction(transaction);
+                res.json({
+                    mess: "thành công"
+                });
+            }
+            catch (e) {
+                console.log(e);
+            }
         };
         this.showTransactions = async (req, res) => {
             try {
